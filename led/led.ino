@@ -42,25 +42,18 @@ void led_off(int pin){
 }
 boolean push_button1(){
   if(digitalRead(BTN1)==LOW){
-    if (flag1==false){
-      flag1 = true;
-      return true; 
-    }
-     else{
-      flag1 = false;
-      return false;
-     }
+    return true; 
+  }
+  else{
+    return false;
   }
 }
 boolean push_button2(){
   if(digitalRead(BTN2)==HIGH){
-    if (flag2==false){
-      flag2 = true;
-      return true; 
-    }
-     else{
-      flag2 = false;
-      return false;
-     }
+    return true; 
+  }
+  else{
+    return false;
+
   }
 }
