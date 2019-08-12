@@ -1,34 +1,35 @@
 int led = 13;
+int sensorValue = 0;
+
 void setup() {
   // put your setup code here, to run once:
-  pinMode(led,output);
-  digitalWrite(led,high);
+  pinMode(led,OUTPUT);
+  Serial.begin(9600);
+  digitalWrite(led,HIGH);
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-  led_on(led)
-  le_temp()
-  delay(1000);
-  
-  led_off(led)
-  imprime_res()
-  delay(1000);
+  le_temp(sensorValue);
+  delay(2000);
+  imprime_res();
 }
 
 void led_on(int pin){
-  digitalWrite(led,high);
+  digitalWrite(led,HIGH);
 }
 
 void led_off(int pin){
-  digitalWrite(led,low);
+  digitalWrite(led,LOW);
 }
 
-void le_temp(){
-  
+void le_temp(int pin){
+  sensorValue = analogRead(pin);
+  led_on(led);
 }
 
 void imprime_res(){
-  
+  Serial.println(sensorValue);
+  led_off(led);
 }
 
