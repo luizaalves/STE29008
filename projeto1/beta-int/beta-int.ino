@@ -33,12 +33,16 @@ void led_off(int pin){
 }
 
 void le_temp(int pin){
+  int temp1 = micros();
   sensorValue = analogRead(pin);
   calculo_temp();
+  int temp2 = micros();
+  Serial.print("tempo(ms): ");
+  Serial.println(temp2-temp1);
 }
 
 void imprime_res(){
-  Serial.println("temperatura: ");
+  Serial.print("temperatura(°C): ");
   Serial.println(temperatura);
 }
 
