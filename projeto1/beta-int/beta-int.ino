@@ -1,7 +1,9 @@
 int led = 13;
 int sensorPin = A0;
-long int sensorValue, beta, temperatura;
-long int r0,t0;
+float sensorValue;
+long int temperatura;
+long int beta;
+float r0,t0;
 
 void setup() {
   pinMode(led,OUTPUT);
@@ -10,8 +12,8 @@ void setup() {
   sensorValue = 0;
   temperatura = 0;
 
-  r0 = (10e3)*100;
-  t0 = 29815;
+  r0 = 10e5;
+  t0 = 298.15;
   beta = 3950;
 }
 
@@ -47,8 +49,8 @@ void imprime_res(){
 }
 
 void calculo_temp(){
-  int vout = sensorValue;
-  long int r = 10e3*(((1023/vout)*100)-1*100);
-  long int temp_kelvin = (t0*beta)/(100*beta+(t0*log(r/r0)));
+  long int vout = sensorValue;
+  long int r = (10e3)*(((1023e2)/vout)-1e2);
+  long int temp_kelvin = (t0*beta)/(beta+(t0*log(r/r0)));
   temperatura = temp_kelvin - 273.15;
 }
