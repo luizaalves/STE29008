@@ -1,23 +1,28 @@
-int led = 13;
-int sensorPin = A0;
-float sensorValue, beta, temperatura;
-float r0,t0;
+#define led 13
+#define sensorPin A0
+
+#define beta 3950.0
+//#define r0 10000.0
+//#define t0 298.15
+//#define vout_d 753.0
+#define vin 1023.0
+#define rinf 0.01763
+
+float temperatura;
+float temp_kelvin;
+float r;
+int sensorValue;
 
 void setup() {
   pinMode(led,OUTPUT);
   Serial.begin(9600);
   digitalWrite(led,LOW);
-  sensorValue = 0;
-  temperatura = 0;
 
-  r0 = 10e3;
-  t0 = 298.15;
-  beta = 3950;
 }
 
 void loop() {
   led_on(led);
-  le_temp(sensorPin);
+  calculo_temp();
   delay(1000);
   led_off(led);
   imprime_res();
@@ -31,25 +36,13 @@ void led_on(int pin){
 void led_off(int pin){
   digitalWrite(led,LOW);
 }
-
-void le_temp(int pin){
-  int temp1 = micros();
-  sensorValue = analogRead(pin);
-  calculo_temp();
-  int temp2 = micros();
-  Serial.print("tempo(ms): ");
-  Serial.println(temp2-temp1);
+void calculo_temp(){
+  sensorValue = analogRead(sensorPin);
+  r = 10e3*((vin/sensorValue)-1);
+  temp_kelvin = beta/log(r/rinf);
+  temperatura = temp_kelvin - 273.15;
 }
-
 void imprime_res(){
   Serial.print("temperatura(°C): ");
   Serial.println(temperatura);
-}
-
-void calculo_temp(){
-  float vout = sensorValue;
-  float val_normalizado = 5* vout /1023;
-  float r = 10e3*((5/val_normalizado)-1);
-  float temp_kelvin = (t0*beta)/(beta+(t0*log(r/r0)));
-  temperatura = temp_kelvin - 273.15;
 }
