@@ -23,7 +23,6 @@ void setup() {
 void loop() {
   led_on(led);
   calculo_temp();
-  delay(1000);
   led_off(led);
   imprime_res();
   delay(1000);
