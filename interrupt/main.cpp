@@ -8,7 +8,7 @@
 
 #include <avr/io.h> //ctrl + clicar nele abre o .h; ctrl + f = atmega2560 > ctrl + clicar nele abre o .h
 #include <util/delay.h>
-
+#include <avr/interrupt.h>
 #define F_CPU 16000000UL//definir a frequência da cpu, força todas as biblioteca a trabalhem com 16MHz
 #define BAUD 9600
 #define ubrr_calc F_CPU/16/BAUD-1
@@ -20,6 +20,9 @@ void USART_Transmit(unsigned char data);
 int main(int argc, char** argv) {
 
     setup();
+	sei();
+	EICRB |= (3<<ISC40);
+	EIMSK |= (1<<INT4);
     DDRB |= (1<<7);//DDRB configurando o pino b7 como saida
     DDRE &= ~(1<<4); //DDRB configurando o pino pe4 como entrada
     //PB7 SAÍDA E PE4B6 ENTRADA
