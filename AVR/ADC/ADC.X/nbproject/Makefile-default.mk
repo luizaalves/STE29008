@@ -85,7 +85,7 @@ FIXDEPS=fixDeps
 
 # The following macros may be used in the pre and post step lines
 Device=ATmega2560
-ProjectDir=/home/aluno/ste/AVR/ADC/ADC.X
+ProjectDir=/home/felipe/extensao-projeto1/STE29008/AVR/ADC/ADC.X
 ConfName=default
 ImagePath=dist/default/${IMAGE_TYPE}/ADC.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
 ImageDir=dist/default/${IMAGE_TYPE}
