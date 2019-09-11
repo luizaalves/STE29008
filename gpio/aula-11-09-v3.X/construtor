@@ -1,0 +1,62 @@
+GPIO::GPIO(uint8_t id, PortDirection_t dir){
+    _id = id;
+    switch (_id) {
+        case 0:
+        case 1:{
+            _bit = id;
+            _ddr = &DDRE;
+            _port = &PORTE;
+            _pin = &PINE;
+        }
+        break;
+        case 2:
+        case 3:{
+            _bit = id - 2;
+            _ddr = &DDRE;
+            _port = &PORTE;
+            _pin = &PINE;
+        }
+        break;
+        case 5:{
+            _bit = id + 2;
+            _ddr = &DDRE;
+            _port = &PORTE;
+            _pin = &PINE;
+        }
+        break;
+        case 4:{
+            _bit = id + 1;
+            _ddr = &DDRG;
+            _port = &PORTG;
+            _pin = &PING;
+        }
+        break;
+        case 6:
+        case 7:
+        case 8:
+        case 9:{
+            _bit = id - 3;
+            _ddr = &DDRH;
+            _port = &PORTH;
+            _pin = &PINH;
+        }
+        break;
+        case 10:
+        case 11:
+        case 12:
+        case 13:{
+            _bit = id - 6;
+            _ddr = &DDRB;
+            _port = &PORTB;
+            _pin = &PINB;
+        }
+        break;
+    }
+    if (dir) {
+        *_ddr |= (1 << _bit);  //OUTPUT
+    } 
+    else {
+        *_ddr &= ~(1 << _bit); //INPUT
+    }
+}
+
