@@ -21,6 +21,8 @@
     <itemPath>main.cpp</itemPath>
     <itemPath>GPIO.h</itemPath>
     <itemPath>GPIO.cpp</itemPath>
+    <itemPath>construtor</itemPath>
+    <itemPath>metricas.txt</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -47,7 +49,7 @@
         </archiverTool>
         <loading>
           <useAlternateLoadableFile>false</useAlternateLoadableFile>
-          <parseOnProdLoad>false</parseOnProdLoad>
+          <parseOnProdLoad>true</parseOnProdLoad>
           <alternateLoadableFile></alternateLoadableFile>
         </loading>
         <subordinates>
