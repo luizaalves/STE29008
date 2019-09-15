@@ -1,5 +1,0 @@
-tamanho do set = 66 bytes;
-tamanho do construtor = 316 bytes;
-
-memória de dados = 40 bytes;
-memória de programa = 1130 bytes; 
