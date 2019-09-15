@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=aula-11-09-v2.0.X
+PROJECTNAME=gpio-v3.0.X
 
 # Active Configuration
 DEFAULTCONF=default

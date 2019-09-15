@@ -21,9 +21,9 @@ private:
     uint8_t port;
 };
 
-extern GPIO_Port * AllPorts[4];
-extern const uint8_t id_to_port[14];
-extern const uint8_t id_to_bit[14];
+extern GPIO_Port * AllPorts[11];
+extern const uint8_t id_to_port[70];
+extern const uint8_t id_to_bit[70];
 
 
 

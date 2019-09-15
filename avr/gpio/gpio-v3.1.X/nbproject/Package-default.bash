@@ -10,9 +10,9 @@ CND_CONF=default
 CND_DISTDIR=dist
 TMPDIR=build/${CND_CONF}/${IMAGE_TYPE}/tmp-packaging
 TMPDIRNAME=tmp-packaging
-OUTPUT_PATH=dist/${CND_CONF}/${IMAGE_TYPE}/aula-11-09-v3.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
-OUTPUT_BASENAME=aula-11-09-v3.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
-PACKAGE_TOP_DIR=aula-11-09-v3.x/
+OUTPUT_PATH=dist/${CND_CONF}/${IMAGE_TYPE}/gpio-v3.1.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+OUTPUT_BASENAME=gpio-v3.1.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+PACKAGE_TOP_DIR=gpio-v3.1.x/
 
 # Functions
 function checkReturnCode
@@ -57,15 +57,15 @@ mkdir -p ${TMPDIR}
 
 # Copy files and create directories and links
 cd "${TOP}"
-makeDirectory ${TMPDIR}/aula-11-09-v3.x/bin
+makeDirectory ${TMPDIR}/gpio-v3.1.x/bin
 copyFileToTmpDir "${OUTPUT_PATH}" "${TMPDIR}/${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}" 0755
 
 
 # Generate tar file
 cd "${TOP}"
-rm -f ${CND_DISTDIR}/${CND_CONF}/package/aula-11-09-v3.x.tar
+rm -f ${CND_DISTDIR}/${CND_CONF}/package/gpio-v3.1.x.tar
 cd ${TMPDIR}
-tar -vcf ../../../../${CND_DISTDIR}/${CND_CONF}/package/aula-11-09-v3.x.tar *
+tar -vcf ../../../../${CND_DISTDIR}/${CND_CONF}/package/gpio-v3.1.x.tar *
 checkReturnCode
 
 # Cleanup

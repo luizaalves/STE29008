@@ -21,10 +21,11 @@ private:
     uint8_t port;
 };
 
-extern GPIO_Port * PB;
-extern GPIO_Port * PE;
-extern GPIO_Port * PG;
-extern GPIO_Port * PH;
+extern GPIO_Port * AllPorts[11];
+extern const uint8_t id_to_port[70];
+extern const uint8_t id_to_bit[70];
+
+
 
 
 } /* namespace GPIO_PORT */

@@ -15,10 +15,6 @@ GPIO::GPIO(uint8_t id, PortDirection_t dir)
 	_port = GPIO_PORT::AllPorts[GPIO_PORT::id_to_port[id]];
 	_port->dir(_bit, dir);
 }
-GPIO::GPIO(GPIO_PORT::Ports_index port, PortDirection_t dir)
-{
-	
-}
 
 GPIO::~GPIO() {
 }
