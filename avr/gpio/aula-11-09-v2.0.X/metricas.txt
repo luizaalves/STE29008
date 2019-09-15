@@ -1,0 +1,7 @@
+tamanho do set GPIO = 16 bytes;
+tamanho do set GPIO_Port = 26
+tamanho do construtor = 222 bytes;
+tamanho do construtor GPIO_Port = 26
+
+memória de dados = 51 bytes;
+memória de programa = 870 bytes; 

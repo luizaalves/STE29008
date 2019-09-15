@@ -3,7 +3,7 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>aula-09-09</name>
+            <name>gpio-v1.1</name>
             <creation-uuid>18407006-6a44-4437-b9d3-faf6772c2fd3</creation-uuid>
             <make-project-type>0</make-project-type>
             <c-extensions/>

@@ -12,5 +12,5 @@
 
 ## Organização do repositório
 
-No diretório 
+No diretório [arduino](https://github.com/luizaalves/STE29008/tree/master/arduino) estão códigos implementados utilizando o **sketch** da *IDE do Arduino*. Já as implementações utilizando a biblioteca **avr-libc** e a *IDE MPLAB X* encontram-se no diretório [avr](https://github.com/luizaalves/STE29008/tree/master/avr).
 
