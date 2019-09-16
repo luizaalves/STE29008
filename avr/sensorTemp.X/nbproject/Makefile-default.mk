@@ -85,7 +85,7 @@ FIXDEPS=fixDeps
 
 # The following macros may be used in the pre and post step lines
 Device=ATmega2560
-ProjectDir=/home/felipe/ifsc/ste/AVR/sensorTemp.X
+ProjectDir=/home/aluno/ste/avr/sensorTemp.X
 ConfName=default
 ImagePath=dist/default/${IMAGE_TYPE}/sensorTemp.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
 ImageDir=dist/default/${IMAGE_TYPE}

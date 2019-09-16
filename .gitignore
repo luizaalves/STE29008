@@ -13,3 +13,5 @@
 /avr/gpio/gpio-v3.0.X/build/
 /avr/gpio/gpio-v3.0.X/dist/
 /avr/gpio/gpio-v3.1.X/build/
+/avr/uart/uart-v1.0.X/build/
+/avr/uart/uart-v1.0.X/dist/
