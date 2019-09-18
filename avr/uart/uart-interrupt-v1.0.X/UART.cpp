@@ -25,7 +25,7 @@ uint8_t UART::get(){
 }
 void UART::put(uint8_t data){
     _tx_buffer = data;
-    UDRIE0 = true;
+    UCSR0B |= (1 << UDRIE0);
 }
 
 bool UART::has_data(){
@@ -39,6 +39,6 @@ static void UART::rx_isr_handler(){
 
 static void UART::tx_isr_handler(){
     UDR0 = _tx_buffer;
-    UDRIE0 = false;
+    UCSR0B &= ~(1 << UDRIE0);
 }
 
