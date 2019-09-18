@@ -31,5 +31,5 @@ void UART::put(uint8_t data){
 }
 void UART::puts(const char* msg){
     for(int i=0;msg[i] != 0; ++i)
-        put(msg[i]);
+        put((uint8_t) msg[i]);
 }
