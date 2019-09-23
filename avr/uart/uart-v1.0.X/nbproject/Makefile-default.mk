@@ -85,7 +85,7 @@ FIXDEPS=fixDeps
 
 # The following macros may be used in the pre and post step lines
 Device=ATmega2560
-ProjectDir=/home/aluno/ste/avr/uart/uart-v1.0.X
+ProjectDir=/home/felipe/ifsc/ste/avr/uart/uart-v1.0.X
 ConfName=default
 ImagePath=dist/default/${IMAGE_TYPE}/uart-v1.0.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
 ImageDir=dist/default/${IMAGE_TYPE}

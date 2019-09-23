@@ -8,7 +8,7 @@
 #ifndef UART_H
 #define	UART_H
 
-#include <avr/io.h>
+
 
 class UART {
     
@@ -41,8 +41,8 @@ public:
     static void tx_isr_handler();
 private:
     static bool _has_data;
-    static uint8_t _rx_buffer;
-    static uint8_t _tx_buffer;
+    static  _rx_buffer;
+    static Fila<uint8_t> _tx_buffer;
 
 };
 
