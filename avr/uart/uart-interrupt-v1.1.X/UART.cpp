@@ -9,7 +9,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include "UART.h"
-#define F_CPU 16000000L
+
 
 bool UART::_has_data = false;
 Fila<uint8_t> UART::_rx_buffer(10);
@@ -27,7 +27,7 @@ uint8_t UART::get(){
     return _rx_buffer.pop();
 }
 void UART::put(uint8_t data){
-    _tx_buffer.push(data)
+    _tx_buffer.push(data);
     UCSR0B |= (1 << UDRIE0);
 }
 void UART::puts(const char* msg){

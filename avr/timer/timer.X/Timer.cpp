@@ -10,7 +10,7 @@
 #include <avr/interrupt.h>
 
 Timer::Timer(Hertz freq)
-: _ticks(0), _timer_base(0), _us_per_tick(0)
+: _ticks(0), _timer_base(0), _us_per_tick(0),_n_timeout(0)
 {
 	static const unsigned int Timer_Top = 0xFF;
 
@@ -69,6 +69,8 @@ Timer::Timer(Hertz freq)
 
 	TCNT0  = _timer_base;
 	TIMSK0 = 0x01; // liga int de ov
+    
+   
 }
 
 Milliseconds Timer::millis()
@@ -91,9 +93,26 @@ void Timer::udelay(Microseconds us)
 	Microseconds start = micros();
 	while((micros() - start) <= us);
 }
+void Timer::addTimeout(uint32_t interval, CALLBACK_t callback){
+    if(_n_timeout < 4){
+        _timeout[_n_timeout].config(interval,callback);
+        _n_timeout++;
+    }
+}
+void Timer::timeoutManager(){
+    if(_n_timeout > 0){
+        for(int i = 0; i < _n_timeout; i++){
+            _timeout[i].checkTimeout();
+        }
+    }        
+}
 
 ISR(TIMER0_OVF_vect) { Timer::ovf_isr_handler(); }
 void Timer::ovf_isr_handler() {
 	TCNT0  = self()->_timer_base;
 	self()->_ticks++;
+    
+    for(int i = 0;i < self()->_n_timeout ;i++){
+        self()->_timeout[i].inc_counter();
+    }
 }

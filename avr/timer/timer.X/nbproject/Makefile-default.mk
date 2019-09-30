@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=Singleton.cpp Timer.cpp main.cpp Timeout.cpp ../../gpio/gpio-v3.0.X/GPIO.cpp ../../gpio/gpio-v3.0.X/GPIO_Port.cpp
+SOURCEFILES_QUOTED_IF_SPACED=Singleton.cpp Timer.cpp main.cpp Timeout.cpp ../../gpio/gpio-v3.1.X/GPIO.cpp ../../gpio/gpio-v3.1.X/GPIO_Port.cpp
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/Singleton.o ${OBJECTDIR}/Timer.o ${OBJECTDIR}/main.o ${OBJECTDIR}/Timeout.o ${OBJECTDIR}/_ext/1373868615/GPIO.o ${OBJECTDIR}/_ext/1373868615/GPIO_Port.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/Singleton.o.d ${OBJECTDIR}/Timer.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/Timeout.o.d ${OBJECTDIR}/_ext/1373868615/GPIO.o.d ${OBJECTDIR}/_ext/1373868615/GPIO_Port.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/Singleton.o ${OBJECTDIR}/Timer.o ${OBJECTDIR}/main.o ${OBJECTDIR}/Timeout.o ${OBJECTDIR}/_ext/1373869576/GPIO.o ${OBJECTDIR}/_ext/1373869576/GPIO_Port.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/Singleton.o.d ${OBJECTDIR}/Timer.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/Timeout.o.d ${OBJECTDIR}/_ext/1373869576/GPIO.o.d ${OBJECTDIR}/_ext/1373869576/GPIO_Port.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/Singleton.o ${OBJECTDIR}/Timer.o ${OBJECTDIR}/main.o ${OBJECTDIR}/Timeout.o ${OBJECTDIR}/_ext/1373868615/GPIO.o ${OBJECTDIR}/_ext/1373868615/GPIO_Port.o
+OBJECTFILES=${OBJECTDIR}/Singleton.o ${OBJECTDIR}/Timer.o ${OBJECTDIR}/main.o ${OBJECTDIR}/Timeout.o ${OBJECTDIR}/_ext/1373869576/GPIO.o ${OBJECTDIR}/_ext/1373869576/GPIO_Port.o
 
 # Source Files
-SOURCEFILES=Singleton.cpp Timer.cpp main.cpp Timeout.cpp ../../gpio/gpio-v3.0.X/GPIO.cpp ../../gpio/gpio-v3.0.X/GPIO_Port.cpp
+SOURCEFILES=Singleton.cpp Timer.cpp main.cpp Timeout.cpp ../../gpio/gpio-v3.1.X/GPIO.cpp ../../gpio/gpio-v3.1.X/GPIO_Port.cpp
 
 
 CFLAGS=
@@ -115,74 +115,74 @@ ${OBJECTDIR}/Singleton.o: Singleton.cpp  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/Singleton.o.d 
 	@${RM} ${OBJECTDIR}/Singleton.o 
-	 ${MP_CPPC} $(MP_EXTRA_CC_PRE) -mmcu=atmega2560  -I "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/include"  -B "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/gcc/dev/atmega2560" -g -DDEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1 -gdwarf-2  -x c++ -c -D__$(MP_PROCESSOR_OPTION)__  -funsigned-char -funsigned-bitfields -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -Wall -MD -MP -MF "${OBJECTDIR}/Singleton.o.d" -MT "${OBJECTDIR}/Singleton.o.d" -MT ${OBJECTDIR}/Singleton.o  -o ${OBJECTDIR}/Singleton.o Singleton.cpp  -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD) 
+	 ${MP_CPPC} $(MP_EXTRA_CC_PRE) -mmcu=atmega2560  -I "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/include"  -B "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/gcc/dev/atmega2560" -g -DDEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1 -gdwarf-2  -x c++ -c -D__$(MP_PROCESSOR_OPTION)__  -funsigned-char -funsigned-bitfields -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -DF_CPU=16000000UL -Wall -MD -MP -MF "${OBJECTDIR}/Singleton.o.d" -MT "${OBJECTDIR}/Singleton.o.d" -MT ${OBJECTDIR}/Singleton.o  -o ${OBJECTDIR}/Singleton.o Singleton.cpp  -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD) 
 	
 ${OBJECTDIR}/Timer.o: Timer.cpp  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/Timer.o.d 
 	@${RM} ${OBJECTDIR}/Timer.o 
-	 ${MP_CPPC} $(MP_EXTRA_CC_PRE) -mmcu=atmega2560  -I "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/include"  -B "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/gcc/dev/atmega2560" -g -DDEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1 -gdwarf-2  -x c++ -c -D__$(MP_PROCESSOR_OPTION)__  -funsigned-char -funsigned-bitfields -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -Wall -MD -MP -MF "${OBJECTDIR}/Timer.o.d" -MT "${OBJECTDIR}/Timer.o.d" -MT ${OBJECTDIR}/Timer.o  -o ${OBJECTDIR}/Timer.o Timer.cpp  -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD) 
+	 ${MP_CPPC} $(MP_EXTRA_CC_PRE) -mmcu=atmega2560  -I "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/include"  -B "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/gcc/dev/atmega2560" -g -DDEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1 -gdwarf-2  -x c++ -c -D__$(MP_PROCESSOR_OPTION)__  -funsigned-char -funsigned-bitfields -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -DF_CPU=16000000UL -Wall -MD -MP -MF "${OBJECTDIR}/Timer.o.d" -MT "${OBJECTDIR}/Timer.o.d" -MT ${OBJECTDIR}/Timer.o  -o ${OBJECTDIR}/Timer.o Timer.cpp  -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD) 
 	
 ${OBJECTDIR}/main.o: main.cpp  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/main.o.d 
 	@${RM} ${OBJECTDIR}/main.o 
-	 ${MP_CPPC} $(MP_EXTRA_CC_PRE) -mmcu=atmega2560  -I "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/include"  -B "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/gcc/dev/atmega2560" -g -DDEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1 -gdwarf-2  -x c++ -c -D__$(MP_PROCESSOR_OPTION)__  -funsigned-char -funsigned-bitfields -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -Wall -MD -MP -MF "${OBJECTDIR}/main.o.d" -MT "${OBJECTDIR}/main.o.d" -MT ${OBJECTDIR}/main.o  -o ${OBJECTDIR}/main.o main.cpp  -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD) 
+	 ${MP_CPPC} $(MP_EXTRA_CC_PRE) -mmcu=atmega2560  -I "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/include"  -B "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/gcc/dev/atmega2560" -g -DDEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1 -gdwarf-2  -x c++ -c -D__$(MP_PROCESSOR_OPTION)__  -funsigned-char -funsigned-bitfields -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -DF_CPU=16000000UL -Wall -MD -MP -MF "${OBJECTDIR}/main.o.d" -MT "${OBJECTDIR}/main.o.d" -MT ${OBJECTDIR}/main.o  -o ${OBJECTDIR}/main.o main.cpp  -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD) 
 	
 ${OBJECTDIR}/Timeout.o: Timeout.cpp  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/Timeout.o.d 
 	@${RM} ${OBJECTDIR}/Timeout.o 
-	 ${MP_CPPC} $(MP_EXTRA_CC_PRE) -mmcu=atmega2560  -I "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/include"  -B "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/gcc/dev/atmega2560" -g -DDEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1 -gdwarf-2  -x c++ -c -D__$(MP_PROCESSOR_OPTION)__  -funsigned-char -funsigned-bitfields -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -Wall -MD -MP -MF "${OBJECTDIR}/Timeout.o.d" -MT "${OBJECTDIR}/Timeout.o.d" -MT ${OBJECTDIR}/Timeout.o  -o ${OBJECTDIR}/Timeout.o Timeout.cpp  -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD) 
+	 ${MP_CPPC} $(MP_EXTRA_CC_PRE) -mmcu=atmega2560  -I "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/include"  -B "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/gcc/dev/atmega2560" -g -DDEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1 -gdwarf-2  -x c++ -c -D__$(MP_PROCESSOR_OPTION)__  -funsigned-char -funsigned-bitfields -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -DF_CPU=16000000UL -Wall -MD -MP -MF "${OBJECTDIR}/Timeout.o.d" -MT "${OBJECTDIR}/Timeout.o.d" -MT ${OBJECTDIR}/Timeout.o  -o ${OBJECTDIR}/Timeout.o Timeout.cpp  -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD) 
 	
-${OBJECTDIR}/_ext/1373868615/GPIO.o: ../../gpio/gpio-v3.0.X/GPIO.cpp  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/_ext/1373868615" 
-	@${RM} ${OBJECTDIR}/_ext/1373868615/GPIO.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1373868615/GPIO.o 
-	 ${MP_CPPC} $(MP_EXTRA_CC_PRE) -mmcu=atmega2560  -I "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/include"  -B "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/gcc/dev/atmega2560" -g -DDEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1 -gdwarf-2  -x c++ -c -D__$(MP_PROCESSOR_OPTION)__  -funsigned-char -funsigned-bitfields -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -Wall -MD -MP -MF "${OBJECTDIR}/_ext/1373868615/GPIO.o.d" -MT "${OBJECTDIR}/_ext/1373868615/GPIO.o.d" -MT ${OBJECTDIR}/_ext/1373868615/GPIO.o  -o ${OBJECTDIR}/_ext/1373868615/GPIO.o ../../gpio/gpio-v3.0.X/GPIO.cpp  -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD) 
+${OBJECTDIR}/_ext/1373869576/GPIO.o: ../../gpio/gpio-v3.1.X/GPIO.cpp  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/_ext/1373869576" 
+	@${RM} ${OBJECTDIR}/_ext/1373869576/GPIO.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1373869576/GPIO.o 
+	 ${MP_CPPC} $(MP_EXTRA_CC_PRE) -mmcu=atmega2560  -I "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/include"  -B "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/gcc/dev/atmega2560" -g -DDEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1 -gdwarf-2  -x c++ -c -D__$(MP_PROCESSOR_OPTION)__  -funsigned-char -funsigned-bitfields -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -DF_CPU=16000000UL -Wall -MD -MP -MF "${OBJECTDIR}/_ext/1373869576/GPIO.o.d" -MT "${OBJECTDIR}/_ext/1373869576/GPIO.o.d" -MT ${OBJECTDIR}/_ext/1373869576/GPIO.o  -o ${OBJECTDIR}/_ext/1373869576/GPIO.o ../../gpio/gpio-v3.1.X/GPIO.cpp  -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD) 
 	
-${OBJECTDIR}/_ext/1373868615/GPIO_Port.o: ../../gpio/gpio-v3.0.X/GPIO_Port.cpp  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/_ext/1373868615" 
-	@${RM} ${OBJECTDIR}/_ext/1373868615/GPIO_Port.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1373868615/GPIO_Port.o 
-	 ${MP_CPPC} $(MP_EXTRA_CC_PRE) -mmcu=atmega2560  -I "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/include"  -B "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/gcc/dev/atmega2560" -g -DDEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1 -gdwarf-2  -x c++ -c -D__$(MP_PROCESSOR_OPTION)__  -funsigned-char -funsigned-bitfields -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -Wall -MD -MP -MF "${OBJECTDIR}/_ext/1373868615/GPIO_Port.o.d" -MT "${OBJECTDIR}/_ext/1373868615/GPIO_Port.o.d" -MT ${OBJECTDIR}/_ext/1373868615/GPIO_Port.o  -o ${OBJECTDIR}/_ext/1373868615/GPIO_Port.o ../../gpio/gpio-v3.0.X/GPIO_Port.cpp  -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD) 
+${OBJECTDIR}/_ext/1373869576/GPIO_Port.o: ../../gpio/gpio-v3.1.X/GPIO_Port.cpp  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/_ext/1373869576" 
+	@${RM} ${OBJECTDIR}/_ext/1373869576/GPIO_Port.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1373869576/GPIO_Port.o 
+	 ${MP_CPPC} $(MP_EXTRA_CC_PRE) -mmcu=atmega2560  -I "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/include"  -B "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/gcc/dev/atmega2560" -g -DDEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1 -gdwarf-2  -x c++ -c -D__$(MP_PROCESSOR_OPTION)__  -funsigned-char -funsigned-bitfields -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -DF_CPU=16000000UL -Wall -MD -MP -MF "${OBJECTDIR}/_ext/1373869576/GPIO_Port.o.d" -MT "${OBJECTDIR}/_ext/1373869576/GPIO_Port.o.d" -MT ${OBJECTDIR}/_ext/1373869576/GPIO_Port.o  -o ${OBJECTDIR}/_ext/1373869576/GPIO_Port.o ../../gpio/gpio-v3.1.X/GPIO_Port.cpp  -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD) 
 	
 else
 ${OBJECTDIR}/Singleton.o: Singleton.cpp  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/Singleton.o.d 
 	@${RM} ${OBJECTDIR}/Singleton.o 
-	 ${MP_CPPC} $(MP_EXTRA_CC_PRE) -mmcu=atmega2560  -I "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/include"  -B "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/gcc/dev/atmega2560"  -x c++ -c -D__$(MP_PROCESSOR_OPTION)__  -funsigned-char -funsigned-bitfields -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -Wall -MD -MP -MF "${OBJECTDIR}/Singleton.o.d" -MT "${OBJECTDIR}/Singleton.o.d" -MT ${OBJECTDIR}/Singleton.o  -o ${OBJECTDIR}/Singleton.o Singleton.cpp  -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD) 
+	 ${MP_CPPC} $(MP_EXTRA_CC_PRE) -mmcu=atmega2560  -I "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/include"  -B "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/gcc/dev/atmega2560"  -x c++ -c -D__$(MP_PROCESSOR_OPTION)__  -funsigned-char -funsigned-bitfields -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -DF_CPU=16000000UL -Wall -MD -MP -MF "${OBJECTDIR}/Singleton.o.d" -MT "${OBJECTDIR}/Singleton.o.d" -MT ${OBJECTDIR}/Singleton.o  -o ${OBJECTDIR}/Singleton.o Singleton.cpp  -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD) 
 	
 ${OBJECTDIR}/Timer.o: Timer.cpp  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/Timer.o.d 
 	@${RM} ${OBJECTDIR}/Timer.o 
-	 ${MP_CPPC} $(MP_EXTRA_CC_PRE) -mmcu=atmega2560  -I "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/include"  -B "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/gcc/dev/atmega2560"  -x c++ -c -D__$(MP_PROCESSOR_OPTION)__  -funsigned-char -funsigned-bitfields -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -Wall -MD -MP -MF "${OBJECTDIR}/Timer.o.d" -MT "${OBJECTDIR}/Timer.o.d" -MT ${OBJECTDIR}/Timer.o  -o ${OBJECTDIR}/Timer.o Timer.cpp  -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD) 
+	 ${MP_CPPC} $(MP_EXTRA_CC_PRE) -mmcu=atmega2560  -I "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/include"  -B "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/gcc/dev/atmega2560"  -x c++ -c -D__$(MP_PROCESSOR_OPTION)__  -funsigned-char -funsigned-bitfields -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -DF_CPU=16000000UL -Wall -MD -MP -MF "${OBJECTDIR}/Timer.o.d" -MT "${OBJECTDIR}/Timer.o.d" -MT ${OBJECTDIR}/Timer.o  -o ${OBJECTDIR}/Timer.o Timer.cpp  -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD) 
 	
 ${OBJECTDIR}/main.o: main.cpp  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/main.o.d 
 	@${RM} ${OBJECTDIR}/main.o 
-	 ${MP_CPPC} $(MP_EXTRA_CC_PRE) -mmcu=atmega2560  -I "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/include"  -B "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/gcc/dev/atmega2560"  -x c++ -c -D__$(MP_PROCESSOR_OPTION)__  -funsigned-char -funsigned-bitfields -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -Wall -MD -MP -MF "${OBJECTDIR}/main.o.d" -MT "${OBJECTDIR}/main.o.d" -MT ${OBJECTDIR}/main.o  -o ${OBJECTDIR}/main.o main.cpp  -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD) 
+	 ${MP_CPPC} $(MP_EXTRA_CC_PRE) -mmcu=atmega2560  -I "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/include"  -B "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/gcc/dev/atmega2560"  -x c++ -c -D__$(MP_PROCESSOR_OPTION)__  -funsigned-char -funsigned-bitfields -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -DF_CPU=16000000UL -Wall -MD -MP -MF "${OBJECTDIR}/main.o.d" -MT "${OBJECTDIR}/main.o.d" -MT ${OBJECTDIR}/main.o  -o ${OBJECTDIR}/main.o main.cpp  -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD) 
 	
 ${OBJECTDIR}/Timeout.o: Timeout.cpp  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/Timeout.o.d 
 	@${RM} ${OBJECTDIR}/Timeout.o 
-	 ${MP_CPPC} $(MP_EXTRA_CC_PRE) -mmcu=atmega2560  -I "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/include"  -B "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/gcc/dev/atmega2560"  -x c++ -c -D__$(MP_PROCESSOR_OPTION)__  -funsigned-char -funsigned-bitfields -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -Wall -MD -MP -MF "${OBJECTDIR}/Timeout.o.d" -MT "${OBJECTDIR}/Timeout.o.d" -MT ${OBJECTDIR}/Timeout.o  -o ${OBJECTDIR}/Timeout.o Timeout.cpp  -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD) 
+	 ${MP_CPPC} $(MP_EXTRA_CC_PRE) -mmcu=atmega2560  -I "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/include"  -B "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/gcc/dev/atmega2560"  -x c++ -c -D__$(MP_PROCESSOR_OPTION)__  -funsigned-char -funsigned-bitfields -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -DF_CPU=16000000UL -Wall -MD -MP -MF "${OBJECTDIR}/Timeout.o.d" -MT "${OBJECTDIR}/Timeout.o.d" -MT ${OBJECTDIR}/Timeout.o  -o ${OBJECTDIR}/Timeout.o Timeout.cpp  -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD) 
 	
-${OBJECTDIR}/_ext/1373868615/GPIO.o: ../../gpio/gpio-v3.0.X/GPIO.cpp  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/_ext/1373868615" 
-	@${RM} ${OBJECTDIR}/_ext/1373868615/GPIO.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1373868615/GPIO.o 
-	 ${MP_CPPC} $(MP_EXTRA_CC_PRE) -mmcu=atmega2560  -I "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/include"  -B "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/gcc/dev/atmega2560"  -x c++ -c -D__$(MP_PROCESSOR_OPTION)__  -funsigned-char -funsigned-bitfields -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -Wall -MD -MP -MF "${OBJECTDIR}/_ext/1373868615/GPIO.o.d" -MT "${OBJECTDIR}/_ext/1373868615/GPIO.o.d" -MT ${OBJECTDIR}/_ext/1373868615/GPIO.o  -o ${OBJECTDIR}/_ext/1373868615/GPIO.o ../../gpio/gpio-v3.0.X/GPIO.cpp  -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD) 
+${OBJECTDIR}/_ext/1373869576/GPIO.o: ../../gpio/gpio-v3.1.X/GPIO.cpp  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/_ext/1373869576" 
+	@${RM} ${OBJECTDIR}/_ext/1373869576/GPIO.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1373869576/GPIO.o 
+	 ${MP_CPPC} $(MP_EXTRA_CC_PRE) -mmcu=atmega2560  -I "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/include"  -B "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/gcc/dev/atmega2560"  -x c++ -c -D__$(MP_PROCESSOR_OPTION)__  -funsigned-char -funsigned-bitfields -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -DF_CPU=16000000UL -Wall -MD -MP -MF "${OBJECTDIR}/_ext/1373869576/GPIO.o.d" -MT "${OBJECTDIR}/_ext/1373869576/GPIO.o.d" -MT ${OBJECTDIR}/_ext/1373869576/GPIO.o  -o ${OBJECTDIR}/_ext/1373869576/GPIO.o ../../gpio/gpio-v3.1.X/GPIO.cpp  -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD) 
 	
-${OBJECTDIR}/_ext/1373868615/GPIO_Port.o: ../../gpio/gpio-v3.0.X/GPIO_Port.cpp  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/_ext/1373868615" 
-	@${RM} ${OBJECTDIR}/_ext/1373868615/GPIO_Port.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1373868615/GPIO_Port.o 
-	 ${MP_CPPC} $(MP_EXTRA_CC_PRE) -mmcu=atmega2560  -I "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/include"  -B "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/gcc/dev/atmega2560"  -x c++ -c -D__$(MP_PROCESSOR_OPTION)__  -funsigned-char -funsigned-bitfields -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -Wall -MD -MP -MF "${OBJECTDIR}/_ext/1373868615/GPIO_Port.o.d" -MT "${OBJECTDIR}/_ext/1373868615/GPIO_Port.o.d" -MT ${OBJECTDIR}/_ext/1373868615/GPIO_Port.o  -o ${OBJECTDIR}/_ext/1373868615/GPIO_Port.o ../../gpio/gpio-v3.0.X/GPIO_Port.cpp  -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD) 
+${OBJECTDIR}/_ext/1373869576/GPIO_Port.o: ../../gpio/gpio-v3.1.X/GPIO_Port.cpp  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/_ext/1373869576" 
+	@${RM} ${OBJECTDIR}/_ext/1373869576/GPIO_Port.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1373869576/GPIO_Port.o 
+	 ${MP_CPPC} $(MP_EXTRA_CC_PRE) -mmcu=atmega2560  -I "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/include"  -B "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/gcc/dev/atmega2560"  -x c++ -c -D__$(MP_PROCESSOR_OPTION)__  -funsigned-char -funsigned-bitfields -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -DF_CPU=16000000UL -Wall -MD -MP -MF "${OBJECTDIR}/_ext/1373869576/GPIO_Port.o.d" -MT "${OBJECTDIR}/_ext/1373869576/GPIO_Port.o.d" -MT ${OBJECTDIR}/_ext/1373869576/GPIO_Port.o  -o ${OBJECTDIR}/_ext/1373869576/GPIO_Port.o ../../gpio/gpio-v3.1.X/GPIO_Port.cpp  -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD) 
 	
 endif
 

@@ -8,13 +8,15 @@
 #ifndef TIMEOUT_H
 #define	TIMEOUT_H
 
+#include <avr/io.h>
+
+
 typedef void (*CALLBACK_t) (void);
 
 class Timeout {
     
 public:
     Timeout();
-    virtual ~Timeout();
     void config(uint32_t interval,CALLBACK_t callback);
     void checkTimeout();
     void callback();

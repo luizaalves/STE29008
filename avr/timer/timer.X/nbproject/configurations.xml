@@ -7,8 +7,8 @@
       <itemPath>Singleton.h</itemPath>
       <itemPath>Timer.h</itemPath>
       <itemPath>Timeout.h</itemPath>
-      <itemPath>../../gpio/gpio-v3.0.X/GPIO.h</itemPath>
-      <itemPath>../../gpio/gpio-v3.0.X/GPIO_Port.h</itemPath>
+      <itemPath>../../gpio/gpio-v3.1.X/GPIO.h</itemPath>
+      <itemPath>../../gpio/gpio-v3.1.X/GPIO_Port.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -21,8 +21,8 @@
       <itemPath>Timer.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
       <itemPath>Timeout.cpp</itemPath>
-      <itemPath>../../gpio/gpio-v3.0.X/GPIO.cpp</itemPath>
-      <itemPath>../../gpio/gpio-v3.0.X/GPIO_Port.cpp</itemPath>
+      <itemPath>../../gpio/gpio-v3.1.X/GPIO.cpp</itemPath>
+      <itemPath>../../gpio/gpio-v3.1.X/GPIO_Port.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -32,6 +32,7 @@
   </logicalFolder>
   <sourceRootList>
     <Elem>../../gpio/gpio-v3.0.X</Elem>
+    <Elem>../../gpio/gpio-v3.1.X</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -103,7 +104,7 @@
         <property key="optimization-level" value="-O1"/>
         <property key="pack-struct" value="true"/>
         <property key="preprocess-only" value="false"/>
-        <property key="preprocessor-macros" value=""/>
+        <property key="preprocessor-macros" value="F_CPU=16000000UL"/>
         <property key="preprocessor-macros-undefined" value=""/>
         <property key="save-temps" value="false"/>
         <property key="short-calls" value="false"/>

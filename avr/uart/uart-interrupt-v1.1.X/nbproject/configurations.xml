@@ -94,7 +94,7 @@
         <property key="optimization-level" value="-O1"/>
         <property key="pack-struct" value="true"/>
         <property key="preprocess-only" value="false"/>
-        <property key="preprocessor-macros" value=""/>
+        <property key="preprocessor-macros" value="F_CPU=16000000UL"/>
         <property key="preprocessor-macros-undefined" value=""/>
         <property key="save-temps" value="false"/>
         <property key="short-calls" value="false"/>

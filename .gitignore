@@ -16,3 +16,7 @@
 /avr/uart/uart-v1.0.X/build/
 /avr/uart/uart-v1.0.X/dist/
 /avr/uart/uart-interrupt-v1.0.X/build/
+/avr/timer/timer.X/build/
+/avr/timer/timer.X/dist/
+/avr/uart/uart-interrupt-v1.1.X/build/
+/avr/uart/uart-interrupt-v1.1.X/dist/
