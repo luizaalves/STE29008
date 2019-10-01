@@ -10,6 +10,7 @@
 
 #include "fila.h"
 
+typedef Fila<uint8_t,10> BUFFER_UART_t;
 
 class UART {
     
@@ -34,7 +35,7 @@ public:
          DATABITS_t db = DATABITS_8, 
          PARITY_t parity = NONE,
          STOPBITS_t sb = STOPBIT_1);
-    ~UART();
+    
     void put(uint8_t data);
     void puts(const char * msg);
     uint8_t get();
@@ -43,8 +44,8 @@ public:
     static void tx_isr_handler();
 private:
     static bool _has_data;
-    static Fila<uint8_t> _rx_buffer;
-    static Fila<uint8_t> _tx_buffer;
+    static BUFFER_UART_t _rx_buffer;
+    static BUFFER_UART_t _tx_buffer;
 
 };
 

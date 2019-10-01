@@ -16,7 +16,6 @@
                    projectFiles="true">
       <itemPath>UART.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
-      <itemPath>fila.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

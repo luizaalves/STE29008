@@ -12,15 +12,11 @@
 
 
 bool UART::_has_data = false;
-Fila<uint8_t> UART::_rx_buffer(10);
-Fila<uint8_t> UART::_tx_buffer(10);
+
 UART::UART(uint32_t baud, DATABITS_t db, PARITY_t parity, STOPBITS_t sb){
     UBRR0 = F_CPU/16/baud-1;
     UCSR0B |= (1 << TXEN0) | (1 << RXEN0) | (1 << RXCIE0); 
     UCSR0C = (db | parity | sb);
-}
-
-UART::~UART() {
 }
 
 uint8_t UART::get(){
