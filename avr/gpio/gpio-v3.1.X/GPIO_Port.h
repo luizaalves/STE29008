@@ -14,7 +14,11 @@ public:
     void clear(uint8_t p);
     bool  get(uint8_t p);
     void toggle(uint8_t p);
-
+    void dir_byte(bool io); 
+    void write_byte(uint8_t val); 
+    uint8_t read_byte(); 
+    void toggle_byte(); 
+    
 private:
     uint8_t pin;
     uint8_t ddr;

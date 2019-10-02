@@ -27,7 +27,7 @@ GPIO led6(6, GPIO::OUTPUT);		//PH0
 GPIO ledt(GPIO_PORT::Ports_index.PA_i, GPIO::OUTPUT);
  
 int main(void){
- 
+ //não usar o delay, usar o timer
 	UCSR0B = 0;
  
 	led0.set(1);

@@ -25,7 +25,6 @@ bool GPIO::get() {
 
 void GPIO::set(bool val) {
     _port->set(_bit,val);
-    
 }
 
 void GPIO::clear() {

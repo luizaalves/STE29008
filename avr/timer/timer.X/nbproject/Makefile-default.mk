@@ -85,7 +85,7 @@ FIXDEPS=fixDeps
 
 # The following macros may be used in the pre and post step lines
 Device=ATmega2560
-ProjectDir=/home/felipe/ifsc/ste/avr/timer/timer.X
+ProjectDir=/home/aluno/STE29008/avr/timer/timer.X
 ConfName=default
 ImagePath=dist/default/${IMAGE_TYPE}/timer.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
 ImageDir=dist/default/${IMAGE_TYPE}

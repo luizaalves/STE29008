@@ -196,7 +196,6 @@ const uint8_t id_to_bit[70] = {
 };
 //GPIO_Port * PB = (GPIO_Port *)AVR_PB;
 
-
 void GPIO_Port::dir(uint8_t p, bool io) {
     if (io)
         ddr |= p;
@@ -210,9 +209,11 @@ void GPIO_Port::set(uint8_t p, bool val) {
     else
         port &= ~p;
 }
+
 void GPIO_Port::clear(uint8_t p) {
     set(p,0);
 }
+
 bool GPIO_Port::get(uint8_t p) {
     return pin & p;
 }
@@ -221,5 +222,23 @@ void GPIO_Port::toggle(uint8_t p) {
 	pin |= p;
 }
 
+void GPIO_Port::dir_byte(bool io) {
+    if (io)
+        AllPorts->ddr = 1;
+    else
+        AllPorts->ddr &= ~0;
+}
+
+void GPIO_Port::write_byte(uint8_t val) {
+        AllPorts->pin | = val;
+}
+
+uint8_t GPIO_Port::read_byte() {
+    return AllPorts->pin;
+}
+
+void GPIO_Port::toggle_byte() {
+    AllPorts->pin = ~AllPorts->pin;
+}
 
 } /* namespace GPIO_PORT */
