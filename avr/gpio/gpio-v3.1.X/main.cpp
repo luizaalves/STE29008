@@ -12,25 +12,17 @@
 
 #define F_CPU 16000000L
 #include <util/delay.h>
- 
-//LEDS PLACA (acende com '0')
-GPIO led0(0, GPIO::OUTPUT);		//PE0
-GPIO led1(1, GPIO::OUTPUT);		//PE1
- 
-//LEDS PLACA (acende com '1')
-//GPIO led13(13, GPIO::OUTPUT);	//PB7
- 
-//Adicionar LED
-GPIO led4(4, GPIO::OUTPUT);		//PG5
-GPIO led6(6, GPIO::OUTPUT);		//PH0
+
 
 GPIO ledt(GPIO_PORT::Ports_index.PA_i, GPIO::OUTPUT);
+GPIO led(GPIO_PORT::PK_i, GPIO::OUTPUT);
  
 int main(void){
  //não usar o delay, usar o timer
+ //extremamente incompleto
 	UCSR0B = 0;
  
-	led0.set(1);
+	led.set(1);
 	led1.set(1);
 	led6.clear();
 	led4.clear();
