@@ -224,21 +224,21 @@ void GPIO_Port::toggle(uint8_t p) {
 
 void GPIO_Port::dir_byte(bool io) {
     if (io)
-        AllPorts->ddr = 1;
+        ddr = 0xFF;
     else
-        AllPorts->ddr &= ~0;
+        ddr &= 0x00;
 }
 
 void GPIO_Port::write_byte(uint8_t val) {
-        AllPorts->pin | = val;
+        port = val;
 }
 
 uint8_t GPIO_Port::read_byte() {
-    return AllPorts->pin;
+    return pin;
 }
 
 void GPIO_Port::toggle_byte() {
-    AllPorts->pin = ~AllPorts->pin;
+    pin = 0xFF;
 }
 
 } /* namespace GPIO_PORT */

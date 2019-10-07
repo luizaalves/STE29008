@@ -13,35 +13,31 @@
 #define F_CPU 16000000L
 #include <util/delay.h>
 
+GPIO led13(13,GPIO::OUTPUT);
+GPIO_PORT::GPIO_Port * pk  = GPIO_PORT::AllPorts[9];
 
-GPIO ledt(GPIO_PORT::Ports_index.PA_i, GPIO::OUTPUT);
-GPIO led(GPIO_PORT::PK_i, GPIO::OUTPUT);
- 
+uint8_t pk_value = 0x01;
+
+Timer t = Timer(1000);
+
+voidrotate_pk(void){
+    pk->write_byte(pk_value);
+    if(pk_value == 128) pk_value = 0x01;
+        
+    else pk_value<<=1;
+}
+
 int main(void){
  //não usar o delay, usar o timer
- //extremamente incompleto
-	UCSR0B = 0;
- 
-	led.set(1);
-	led1.set(1);
-	led6.clear();
-	led4.clear();
-	ledt.clear();
-	_delay_ms(1000);
-	led0.clear();
-	led1.clear();
-	led6.set(1);
-	led4.set(1);
-	ledt.set(1);
-	_delay_ms(1000);
- 
-	while (1){
-		led0.toggle();
-		led1.toggle();
-		led6.toggle();
-		led4.toggle();
-		ledt.toggle();
-		_delay_ms(1000);
-	}
- 
+    led13.clear();
+    
+    pk->dir_byte(1);
+
+    t.addTimeout(2000,&rotate_pk);
+    
+    for(;;){
+        t.timeoutManager();
+    }
+    return 0;
+	
 }

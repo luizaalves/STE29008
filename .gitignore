@@ -20,3 +20,4 @@
 /avr/timer/timer.X/dist/
 /avr/uart/uart-interrupt-v1.1.X/build/
 /avr/uart/uart-interrupt-v1.1.X/dist/
+/avr/gpio/gpio-v3.1.X/dist/
