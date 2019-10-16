@@ -6,6 +6,7 @@
                    projectFiles="true">
       <itemPath>GPIO_Port.h</itemPath>
       <itemPath>GPIO.h</itemPath>
+      <itemPath>../../extin.X/extint.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -17,14 +18,17 @@
       <itemPath>GPIO.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
       <itemPath>GPIO_Port.cpp</itemPath>
+      <itemPath>../../extin.X/extint.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
                    projectFiles="false">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
-    <itemPath>metricas.txt</itemPath>
   </logicalFolder>
+  <sourceRootList>
+    <Elem>../../extin.X</Elem>
+  </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
     <conf name="default" type="2">

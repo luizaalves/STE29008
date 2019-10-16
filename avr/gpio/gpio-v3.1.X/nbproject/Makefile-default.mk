@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=GPIO.cpp main.cpp GPIO_Port.cpp
+SOURCEFILES_QUOTED_IF_SPACED=GPIO.cpp main.cpp GPIO_Port.cpp ../../extin.X/extint.cpp
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/GPIO.o ${OBJECTDIR}/main.o ${OBJECTDIR}/GPIO_Port.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/GPIO.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/GPIO_Port.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/GPIO.o ${OBJECTDIR}/main.o ${OBJECTDIR}/GPIO_Port.o ${OBJECTDIR}/_ext/512219696/extint.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/GPIO.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/GPIO_Port.o.d ${OBJECTDIR}/_ext/512219696/extint.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/GPIO.o ${OBJECTDIR}/main.o ${OBJECTDIR}/GPIO_Port.o
+OBJECTFILES=${OBJECTDIR}/GPIO.o ${OBJECTDIR}/main.o ${OBJECTDIR}/GPIO_Port.o ${OBJECTDIR}/_ext/512219696/extint.o
 
 # Source Files
-SOURCEFILES=GPIO.cpp main.cpp GPIO_Port.cpp
+SOURCEFILES=GPIO.cpp main.cpp GPIO_Port.cpp ../../extin.X/extint.cpp
 
 
 CFLAGS=
@@ -85,7 +85,7 @@ FIXDEPS=fixDeps
 
 # The following macros may be used in the pre and post step lines
 Device=ATmega2560
-ProjectDir=/home/aluno/ste/avr/gpio/gpio-v3.1.X
+ProjectDir=/home/felipe/ifsc/ste/avr/gpio/gpio-v3.1.X
 ConfName=default
 ImagePath=dist/default/${IMAGE_TYPE}/gpio-v3.1.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
 ImageDir=dist/default/${IMAGE_TYPE}
@@ -146,6 +146,12 @@ ${OBJECTDIR}/GPIO_Port.o: GPIO_Port.cpp  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/GPIO_Port.o 
 	 ${MP_CPPC} $(MP_EXTRA_CC_PRE) -mmcu=atmega2560  -I "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/include"  -B "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/gcc/dev/atmega2560" -g -DDEBUG  -gdwarf-2  -x c++ -c -D__$(MP_PROCESSOR_OPTION)__  -funsigned-char -funsigned-bitfields -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -Wall -MD -MP -MF "${OBJECTDIR}/GPIO_Port.o.d" -MT "${OBJECTDIR}/GPIO_Port.o.d" -MT ${OBJECTDIR}/GPIO_Port.o  -o ${OBJECTDIR}/GPIO_Port.o GPIO_Port.cpp  -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD) 
 	
+${OBJECTDIR}/_ext/512219696/extint.o: ../../extin.X/extint.cpp  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/_ext/512219696" 
+	@${RM} ${OBJECTDIR}/_ext/512219696/extint.o.d 
+	@${RM} ${OBJECTDIR}/_ext/512219696/extint.o 
+	 ${MP_CPPC} $(MP_EXTRA_CC_PRE) -mmcu=atmega2560  -I "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/include"  -B "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/gcc/dev/atmega2560" -g -DDEBUG  -gdwarf-2  -x c++ -c -D__$(MP_PROCESSOR_OPTION)__  -funsigned-char -funsigned-bitfields -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -Wall -MD -MP -MF "${OBJECTDIR}/_ext/512219696/extint.o.d" -MT "${OBJECTDIR}/_ext/512219696/extint.o.d" -MT ${OBJECTDIR}/_ext/512219696/extint.o  -o ${OBJECTDIR}/_ext/512219696/extint.o ../../extin.X/extint.cpp  -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD) 
+	
 else
 ${OBJECTDIR}/GPIO.o: GPIO.cpp  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
@@ -164,6 +170,12 @@ ${OBJECTDIR}/GPIO_Port.o: GPIO_Port.cpp  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/GPIO_Port.o.d 
 	@${RM} ${OBJECTDIR}/GPIO_Port.o 
 	 ${MP_CPPC} $(MP_EXTRA_CC_PRE) -mmcu=atmega2560  -I "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/include"  -B "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/gcc/dev/atmega2560"  -x c++ -c -D__$(MP_PROCESSOR_OPTION)__  -funsigned-char -funsigned-bitfields -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -Wall -MD -MP -MF "${OBJECTDIR}/GPIO_Port.o.d" -MT "${OBJECTDIR}/GPIO_Port.o.d" -MT ${OBJECTDIR}/GPIO_Port.o  -o ${OBJECTDIR}/GPIO_Port.o GPIO_Port.cpp  -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD) 
+	
+${OBJECTDIR}/_ext/512219696/extint.o: ../../extin.X/extint.cpp  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/_ext/512219696" 
+	@${RM} ${OBJECTDIR}/_ext/512219696/extint.o.d 
+	@${RM} ${OBJECTDIR}/_ext/512219696/extint.o 
+	 ${MP_CPPC} $(MP_EXTRA_CC_PRE) -mmcu=atmega2560  -I "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/include"  -B "/opt/microchip/mplabx/v5.20/packs/Microchip/ATmega_DFP/2.0.12/gcc/dev/atmega2560"  -x c++ -c -D__$(MP_PROCESSOR_OPTION)__  -funsigned-char -funsigned-bitfields -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -Wall -MD -MP -MF "${OBJECTDIR}/_ext/512219696/extint.o.d" -MT "${OBJECTDIR}/_ext/512219696/extint.o.d" -MT ${OBJECTDIR}/_ext/512219696/extint.o  -o ${OBJECTDIR}/_ext/512219696/extint.o ../../extin.X/extint.cpp  -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD) 
 	
 endif
 
