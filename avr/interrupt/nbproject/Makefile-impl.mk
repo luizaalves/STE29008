@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=aula04-09.X
+PROJECTNAME=interrupt
 
 # Active Configuration
 DEFAULTCONF=default

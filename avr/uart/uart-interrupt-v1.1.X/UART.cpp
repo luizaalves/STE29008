@@ -10,7 +10,6 @@
 #include <avr/interrupt.h>
 #include "UART.h"
 
-
 bool UART::_has_data = false;
 BUFFER_UART_t UART::_rx_buffer;
 BUFFER_UART_t UART::_tx_buffer;
@@ -52,7 +51,7 @@ ISR(USART0_RX_vect)
 {
     UART::rx_isr_handler();
 }
-ISR(USART0_TX_vect)
+ISR(USART0_UDRE_vect)
 {
     UART::tx_isr_handler();
 }

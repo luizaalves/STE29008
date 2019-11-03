@@ -20,3 +20,7 @@
 /avr/timer/timer.X/dist/
 /avr/uart/uart-interrupt-v1.1.X/build/
 /avr/uart/uart-interrupt-v1.1.X/dist/
+/avr/extin.X/build/
+/avr/extin.X/dist/
+/Atividade-4/adc_v1.X/build/
+/Atividade-4/adc_v1.X/dist/
