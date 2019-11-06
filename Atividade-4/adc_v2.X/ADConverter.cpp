@@ -7,49 +7,69 @@
 
 #include "ADConverter.h"
 
-ADConverter::ADConverter(REF_t ref, PRESCALER_t clock, CHANNEL_t channel)
-{
+ADConverter::ADConverter(REF_t ref, PRESCALER_t clock) {
+    ADMUX | = (ref<<REFS0);
+    ADCSRA | =(clock<<ADPS0) | (1<<ADEN);
+    _read_free = false;
+}
+ADConverter::select_channel(CHANNEL_t channel){
+    //Zerando inicialmente caso tenha algo da inicialização antiga
+    ADMUX & =~(31<<MUX0);
+    ADCSRB =0x00;
+    
+    if(channel<=channel.A7)
+        ADMUX |= (channel<<MUX0);
+    else {
+        ADCSRB |= (1<<MUX5);
+        ADMUX |= channel & ~(1<<5);
+    }
 }
 
-void ADConverter::start_conversion()
-{
+ADConverter::read(CHANNEL_t channel, uint8_t count, TRIGGER_SRC_t mode){
+    if(not _read_free){
+        _read_free=true;
+        select_channel(channel);
+        _count = count;
+        _count_event=0;
+        _event=false;
+        ADCSRA |=(1<<ADIE);
+        ADCSRB |= (mode<<ADTS0);
+        ADCSRA |=(1<<ADATE);
+    }
+    
 }
 
-void ADConverter::stop_conversion()
-{
+bool ADConverter::free(){
+    
+    return _event;
+}
+uint16_t ADConverter::single_read(CHANNEL_t channel){
+    select_channel(channel);
+    
+    ADCSRA | =(1<<ADSC);
+    while(ADCSRA & (1<<ADSC))
+        ;
+    return ADC;
 }
 
-bool ADConverter::has_data()
-{
-    return true;
+void ADConverter::stop_conversion(){
+    ADCSRA & =~(1<<ADATE);
+    ADCSRA & =~(1<<ADIE);
 }
 
-uint16_t ADConverter::read()
-{
-	return 0;
+void ADConverter::left_adjust(){
+    ADMUX = (1<<ADLAR);
+}
+void ADConverter::handler(){
+    _count_event++;
+    _buffer.push(ADC);
+    if(_count_event==_count){
+        stop_conversion();
+        _event=true;
+        _read_free = false;
+    }
 }
 
-void ADConverter::left_adjust()
-{
-}
-
-void ADConverter::set_channel(CHANNEL_t channel)
-{   
-}
-
-void ADConverter::set_trigger(TRIGGER_SRC_t src)
-{   
-}
-
-void ADConverter::enable_interrupt(CALLBACK_t pCallback)
-{
-    //TODO
-    _callback = pCallback;
-}
-void ADConverter::callback()
-{
-    (*_callback)();
-}
 ISR(ADC_vect) {
-    ADConverter::callback();
+    ADConverter::handler();
 }

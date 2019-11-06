@@ -9,9 +9,9 @@
 #define	ADConverter_H
 
 #include <avr/io.h>
-typedef void (*CALLBACK_t) (void);
+#include "fila.h"
 
-class ADConverter {
+template <int size> class ADConverter {
 public:
 
     enum CHANNEL_t {
@@ -59,22 +59,25 @@ public:
         COMP_B_T1 = 5,
         OVF_T1 = 6,
         EVENT_T1 = 7,
+        NONE = 8
     };
     
     ADConverter(REF_t ref, PRESCALER_t clock, CHANNEL_t channel);
      
-    void start_conversion();
-    void stop_conversion();
-    bool has_data();
-    uint16_t read();
+    void read(CHANNEL_t channel, uint8_t count, TRIGGER_SRC_t mode);
+    bool free();
+    uint16_t single_read(CHANNEL_t channel);
     void left_adjust();
-    void set_channel(CHANNEL_t channel);
-    void set_trigger(TRIGGER_SRC_t src);
-    void enable_interrupt(CALLBACK_t pCallback);
-    static void callback();
+    static void handler();
+    static Fila<uint16_t,size> _buffer;
     
 private:
-    static CALLBACK_t _callback;
+    static uint8_t _count;
+    static uint8_t _count_event;
+    static bool _event;
+    static bool _read_free;
+    void stop_conversion();
+    void select_channel(CHANNEL_t channel);
 };
 
 #endif	/* ADConverter_H */
