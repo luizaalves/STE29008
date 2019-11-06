@@ -11,7 +11,7 @@
 #include <avr/io.h>
 #include "fila.h"
 
-template <int size> class ADConverter {
+class ADConverter {
 public:
 
     enum CHANNEL_t {
@@ -62,21 +62,21 @@ public:
         NONE = 8
     };
     
-    ADConverter(REF_t ref, PRESCALER_t clock, CHANNEL_t channel);
-     
+    ADConverter(REF_t ref = AVCC, PRESCALER_t clock=DIV_128);
     void read(CHANNEL_t channel, uint8_t count, TRIGGER_SRC_t mode);
     bool free();
     uint16_t single_read(CHANNEL_t channel);
     void left_adjust();
     static void handler();
-    static Fila<uint16_t,size> _buffer;
+    
+    static Fila<uint16_t,50> _buffer;
     
 private:
     static uint8_t _count;
     static uint8_t _count_event;
     static bool _event;
     static bool _read_free;
-    void stop_conversion();
+    static void stop_conversion();
     void select_channel(CHANNEL_t channel);
 };
 
