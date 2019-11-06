@@ -12,6 +12,7 @@ using namespace EXT_INT;
 //void int0_handler(void);
 void tx_serial(uint16_t v);
 uint16_t calcula_media();
+int total = 0;
 
 
 //ExtInt int0 = ExtInt(ExtInt::INT_0, ExtInt::FALLING, &int0_handler); 
@@ -31,12 +32,18 @@ int main(int argc, char** argv) {
     uart.puts("Free Running");
     adc.read(ADConverter::A0,50,ADConverter::FREE_RUN);
     for (;;) {
-        if(adc.free()) 
-            tx_serial(calcula_media());  
+        if(adc.free()){ 
+            tx_serial(calcula_media());
+            total = total + 1;
+        }
+        if(total == 10){
+            break;
+        }         
     }
     return 0;
 }
 uint16_t calcula_media(){
+    total = total + 1;
     uint16_t media = 0;
     unsigned int size = ADConverter::_buffer.size();
     while(not ADConverter::_buffer.empty()){
@@ -44,6 +51,7 @@ uint16_t calcula_media(){
     }
     adc.read(ADConverter::A0,50,ADConverter::FREE_RUN);
     return media/size;
+    
 
 }
 
