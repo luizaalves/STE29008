@@ -18,8 +18,8 @@ int total = 0;
 //ExtInt int0 = ExtInt(ExtInt::INT_0, ExtInt::FALLING, &int0_handler); 
 
 UART uart(9600, UART::DATABITS_8, UART::NONE, UART::STOPBIT_1);
+
 ADConverter adc = ADConverter(ADConverter::AVCC, ADConverter::DIV_128);
-char value[sizeof (uint16_t)];  //armazenar caracteres referentes ao sensorValue
 
 int main(int argc, char** argv) {   
     sei();                      //Ativa interrupção global
@@ -57,6 +57,7 @@ uint16_t calcula_media(){
 }
 
 void tx_serial(uint16_t v){
+    char value[sizeof (uint16_t)];
     ltoa(v, value, 10);
     uart.puts(value);
 }
