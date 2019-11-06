@@ -24,6 +24,7 @@ char value[sizeof (uint16_t)];  //armazenar caracteres referentes ao sensorValue
 int main(int argc, char** argv) {   
     sei();                      //Ativa interrupção global
     uart.puts("Bloqueante");
+    _delay_ms(1000);
     for(int i=0;i < 10;i++){
         uint16_t single = adc.single_read(ADConverter::A0);
         tx_serial(single); //Bloqueante
@@ -37,13 +38,13 @@ int main(int argc, char** argv) {
             total = total + 1;
         }
         if(total == 10){
+            _delay_ms(1000);
             break;
         }         
     }
     return 0;
 }
 uint16_t calcula_media(){
-    total = total + 1;
     uint16_t media = 0;
     unsigned int size = ADConverter::_buffer.size();
     while(not ADConverter::_buffer.empty()){
