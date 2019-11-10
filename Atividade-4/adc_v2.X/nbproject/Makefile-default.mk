@@ -83,28 +83,11 @@ LDLIBSOPTIONS=
 # fixDeps replaces a bunch of sed/cat/printf statements that slow down the build
 FIXDEPS=fixDeps
 
-# The following macros may be used in the pre and post step lines
-Device=ATmega2560
-ProjectDir=/home/felipe/ifsc/ste/Atividade-4/adc_v2.X
-ConfName=default
-ImagePath=dist/default/${IMAGE_TYPE}/adc_v2.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
-ImageDir=dist/default/${IMAGE_TYPE}
-ImageName=adc_v2.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
-ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-IsDebug="true"
-else
-IsDebug="false"
-endif
-
 .build-conf:  ${BUILD_SUBPROJECTS}
 ifneq ($(INFORMATION_MESSAGE), )
 	@echo $(INFORMATION_MESSAGE)
 endif
 	${MAKE}  -f nbproject/Makefile-default.mk dist/${CND_CONF}/${IMAGE_TYPE}/adc_v2.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
-	@echo "--------------------------------------"
-	@echo "User defined post-build step: [avrdude -c avrispmkII -P /dev/ttyUSB0 -D -p ${Device} -U flash:w:${ImagePath}:i]"
-	@avrdude -c avrispmkII -P /dev/ttyUSB0 -D -p ${Device} -U flash:w:${ImagePath}:i
-	@echo "--------------------------------------"
 
 MP_PROCESSOR_OPTION=ATmega2560
 # ------------------------------------------------------------------------------------

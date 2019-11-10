@@ -9,11 +9,12 @@
 #include <avr/interrupt.h>
 #include "ADConverter.h"
 
-Fila<uint16_t,50> ADConverter::_buffer;
+
 uint8_t ADConverter::_count;
 uint8_t ADConverter::_count_event;
 bool ADConverter::_event;
 bool ADConverter::_read_free;
+Fila<uint16_t,50> ADConverter::_buffer;
 
 ADConverter::ADConverter(REF_t ref, PRESCALER_t clock) {
     ADMUX |= (ref<<REFS0);
