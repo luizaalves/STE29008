@@ -11,21 +11,24 @@ void upload();
 void read_sensores();
 void write_mem(const char* data);
 void handle_fsm(EVENT_t event);
-bool enable_timeout = false;
-bool enable_timeoutMedidas = true;
+
+uint8_t id_timeout, id_timeoutMedidas, id_timeoutLCD;
+// tempos padrões
+uint32_t timeout = 10000;        // 10 segundos
+uint32_t timeoutMedidas = 60000; // 60 segundos
+uint32_t timeoutLCD = 1000;      // 1 segundo
 
 void handle_timeout(void) {
-    if(enable_timeout){
-        send_serial("TIMEOUT");
-        handle_fsm(TIMEOUT);
-    }
+    send_serial("TIMEOUT");
+    handle_fsm(TIMEOUT);
 }
 
 void handle_timeoutMedidas(void) {
-    if(enable_timeoutMedidas){
-        send_serial("TIMEOUT_MEDIDAS");
-        handle_fsm(TIMEOUT_MEDIDA);
-    }
+    send_serial("TIMEOUT_MEDIDAS");
+    handle_fsm(TIMEOUT_MEDIDA);
+}
+void handle_timeoutLCD(void) {
+    send_serial("TIMEOUT_LCD");
 }
 
 UART _uart(9600, UART::DATABITS_8, UART::NONE, UART::STOPBIT_1);
@@ -33,9 +36,11 @@ Timer _timer = Timer(1000);
 STATE_t _estado_atual = IDLE;
 int main(int argc, char** argv) {
     sei();
+    id_timeout = _timer.addTimeout(10000, &handle_timeout);
+    id_timeoutMedidas = _timer.addTimeout(30000, &handle_timeoutMedidas);
+    id_timeoutLCD = _timer.addTimeout(1000, &handle_timeoutMedidas);
     send_serial("Estado - IDLE");
-    _timer.addTimeout(10000, &handle_timeout);
-    _timer.addTimeout(30000, &handle_timeoutMedidas);
+    _timer.enable_timeout(id_timeoutMedidas);
     while (1) {
         _timer.timeoutManager();
         if (_uart.has_data()) {
@@ -91,16 +96,16 @@ void handle_fsm(EVENT_t event) {
                 send_serial("Estado - WAIT_CONFIG");
                 char msg[] = "Informe o intervalo de leitura:";
                 send_serial(msg);
-                enable_timeout = true;
-                enable_timeoutMedidas = false;
+                _timer.disable_timeout(id_timeoutMedidas);
+                _timer.enable_timeout(id_timeout);
+                
             }
                 break;
             case MAX_MEDIDAS:
             {
                 _estado_atual = UPLOAD;
                 send_serial("Estado - UPLOAD");
-                enable_timeout = false;
-                enable_timeoutMedidas = false;
+                _timer.disable_timeout(id_timeoutMedidas);
                 upload();
             }
                 break;

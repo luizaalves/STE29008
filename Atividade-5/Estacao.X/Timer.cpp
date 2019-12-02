@@ -93,12 +93,17 @@ void Timer::udelay(Microseconds us)
 	Microseconds start = micros();
 	while((micros() - start) <= us);
 }
-void Timer::addTimeout(uint32_t interval, CALLBACK_t callback){
+//Alterado para Atividade-5
+uint8_t Timer::addTimeout(uint32_t interval, CALLBACK_t callback){
+    uint8_t id = 5;
     if(_n_timeout < 4){
         _timeout[_n_timeout].config(interval,callback);
+        id = _n_timeout;
         _n_timeout++;
     }
+    return id;
 }
+//---
 void Timer::timeoutManager(){
     if(_n_timeout > 0){
         for(int i = 0; i < _n_timeout; i++){
@@ -107,12 +112,35 @@ void Timer::timeoutManager(){
     }        
 }
 
+//Inserido na Atividade-5
+void Timer::enable_timeout(uint8_t id_timeout){
+    if(_n_timeout > id_timeout){
+        self()->_timeout[id_timeout].enable(true);
+        self()->_timeout[id_timeout].reload();
+    }
+}
+
+void Timer::disable_timeout(uint8_t id_timeout){
+    if(_n_timeout > id_timeout){
+        self()->_timeout[id_timeout].enable(false);
+    }
+}
+
+void Timer::set_intervalTimeout(uint32_t interv, uint8_t id_timeout){
+    if(_n_timeout > id_timeout){
+        self()->_timeout[id_timeout].set_interval(interv);
+    }
+}
+//---
+
 ISR(TIMER0_OVF_vect) { Timer::ovf_isr_handler(); }
 void Timer::ovf_isr_handler() {
 	TCNT0  = self()->_timer_base;
 	self()->_ticks++;
     
     for(int i = 0;i < self()->_n_timeout ;i++){
-        self()->_timeout[i].inc_counter();
+        if(self()->_timeout[i].enabled()){          //Alterado para Atividade-5
+            self()->_timeout[i].inc_counter();
+        }
     }
 }

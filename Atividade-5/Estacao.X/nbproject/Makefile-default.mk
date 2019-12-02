@@ -85,7 +85,7 @@ FIXDEPS=fixDeps
 
 # The following macros may be used in the pre and post step lines
 Device=ATmega2560
-ProjectDir=/home/felipe/ifsc/ste/Atividade-5/Estacao.X
+ProjectDir=/home/aluno/ste/Atividade-5/Estacao.X
 ConfName=default
 ImagePath=dist/default/${IMAGE_TYPE}/Estacao.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
 ImageDir=dist/default/${IMAGE_TYPE}

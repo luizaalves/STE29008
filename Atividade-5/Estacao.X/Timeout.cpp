@@ -10,7 +10,7 @@
 Timeout::Timeout(){
     _counter=0;
     _interval=0;
-    _enable = true;
+    _enable = false;  //alterado para Atividade-5
     _event = false;
 }
 void Timeout::checkTimeout(){
@@ -34,4 +34,21 @@ void Timeout::config(uint32_t interval, CALLBACK_t callback){
     _callback = callback;
     
 }
+//Inserido para Atividade-5
+bool Timeout::enabled(){
+    return _enable;
+}
 
+void Timeout::enable(bool op){
+    _enable = op;
+}
+
+void Timeout::set_interval(uint32_t interv){
+    _interval = interv;
+}
+
+void Timeout::reload(){
+    _counter = 0;
+}
+
+//---

@@ -21,7 +21,12 @@ public:
     void checkTimeout();
     void callback();
     void inc_counter();
-    
+    //Inserido para Atividade-5
+    bool enabled();
+    void enable(bool op);
+    void set_interval(uint32_t interv);
+    void reload();
+    //---
 private:
     bool _event;
     bool _enable;
