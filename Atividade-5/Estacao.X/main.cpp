@@ -7,22 +7,27 @@
 #include "Timer.h"
 #include "EEPROM.h"
 
+void config(uint8_t op);
 void send_serial(const char* msg);
 void upload();
 void read_sensores();
 void write_mem(const char* data);
 void handle_fsm(EVENT_t event);
 
+#define TIME_BASE 1000
+
 uint8_t id_timeout, id_timeoutMedidas, id_timeoutLCD;
 // tempos padrões
-uint32_t timeout = 60000;        // 10 segundos
-uint32_t timeoutMedidas = 60000; // 60 segundos
-uint32_t timeoutLCD = 1000;      // 1 segundo
+uint32_t timeout = 60 * TIME_BASE; // 10 segundos
+uint32_t timeoutMedidas = 60 * TIME_BASE; // 1 minuto
+uint32_t timeoutLCD = TIME_BASE; // 1 segundo
 
 uint8_t intervalo = 1;
-uint8_t hora, min;
-uint8_t count_medidas = 0;  
+uint8_t int_d, int_u;
+uint8_t h_d, h_u, m_d, m_u;
+uint8_t count_medidas = 0;
 uint8_t max_medidas = 3;
+uint8_t index = 0;
 
 bool is_min = false;
 
@@ -34,16 +39,16 @@ void handle_timeout(void) {
 void handle_timeoutMedidas(void) {
     send_serial("TIMEOUT_MEDIDAS");
     count_medidas++;
-    if(count_medidas < max_medidas){
-        handle_fsm(TIMEOUT_MEDIDAS);   
-    }
-    else{
+    if (count_medidas < max_medidas) {
+        handle_fsm(TIMEOUT_MEDIDAS);
+    } else {
         send_serial("MAX_MEDIDAS");
         count_medidas = 0;
         handle_fsm(MAX_MEDIDAS);
     }
-           
+
 }
+
 void handle_timeoutLCD(void) {
     send_serial("TIMEOUT_LCD");
 }
@@ -86,33 +91,11 @@ int main(int argc, char** argv) {
                     }
 
                 }
-            }
-            else if(_estado_atual == WAIT_CONFIG){
-                if(op == '*'){
-                    send_serial("CONFIG OK");
-                    handle_fsm(SET_INTERVAL);
-                }
-                else{
-                    intervalo = op-48;
-                    uint32_t interv = intervalo*1000;
-                    _timer.set_intervalTimeout(interv, id_timeoutMedidas);                    
-                }
-            }
-            else if(_estado_atual == SINC){
-                if(op == ':'){
-                    is_min = true;
-                }
-                else if(op == '*'){
-                    send_serial("SINC OK");
-                    handle_fsm(SINC_OK);
-                }
-                else if(is_min){
-                    min = op;
-                }
-                else{
-                    hora = op;
-                }
-                
+            } else if (_estado_atual == WAIT_CONFIG) {
+                config(op);
+
+            } else if (_estado_atual == SINC) {
+                sinc(op);
             }
         }
     }
@@ -127,11 +110,11 @@ void handle_fsm(EVENT_t event) {
             {
                 _estado_atual = WAIT_CONFIG;
                 send_serial("Estado - WAIT_CONFIG");
-                char msg[] = "Informe o intervalo de leitura (minutos):";
+                char msg[] = "Intervalo de leitura (minutos) seguido de * :";
                 send_serial(msg);
                 _timer.disable_timeout(id_timeoutMedidas);
                 _timer.enable_timeout(id_timeout);
-                
+
             }
                 break;
             case MAX_MEDIDAS:
@@ -162,7 +145,7 @@ void handle_fsm(EVENT_t event) {
                 break;
             default: _estado_atual = IDLE;
         }
-    //ESTADO WAIT_CONFIG    
+        //ESTADO WAIT_CONFIG    
     } else if (_estado_atual == WAIT_CONFIG) {
         switch (event) {
             case TIMEOUT:
@@ -184,7 +167,7 @@ void handle_fsm(EVENT_t event) {
                 break;
             default: _estado_atual = WAIT_CONFIG;
         }
-    //ESTADO READ_2
+        //ESTADO READ_2
     } else if (_estado_atual == READ_2) {
         switch (event) {
             case ERRO:
@@ -204,7 +187,7 @@ void handle_fsm(EVENT_t event) {
                 break;
             default: _estado_atual = READ_2;
         }
-    //ESTADO READ_1
+        //ESTADO READ_1
     } else if (_estado_atual == READ_1) {
         if (event == READ_OK) {
             send_serial("leitura atual:");
@@ -213,7 +196,7 @@ void handle_fsm(EVENT_t event) {
             //send_serial("Opcoes:\na - Config interval\nb - Ler Sensores");
             _timer.enable_timeout(id_timeoutMedidas);
         }
-    //ESTADO WRITE
+        //ESTADO WRITE
     } else if (_estado_atual == WRITE) {
         if (event == WRITE_OK) {
             _estado_atual = IDLE;
@@ -221,7 +204,7 @@ void handle_fsm(EVENT_t event) {
             //send_serial("Opcoes:\na - Config interval\nb - Ler Sensores");
             _timer.enable_timeout(id_timeoutMedidas);
         }
-    //ESTADO UPLOAD
+        //ESTADO UPLOAD
     } else if (_estado_atual == UPLOAD) {
         if (event == UP_OK) {
             _estado_atual = SINC;
@@ -229,26 +212,67 @@ void handle_fsm(EVENT_t event) {
             send_serial("Informe hora atual (HH:MM)");
             _timer.enable_timeout(id_timeout);
         }
-    //ESTADO SINC
+        //ESTADO SINC
     } else if (_estado_atual == SINC) {
-        switch(event){
-            case SINC_OK : {
+        switch (event) {
+            case SINC_OK:
+            {
                 _timer.disable_timeout(id_timeout);
                 _timer.enable_timeout(id_timeoutMedidas);
                 _estado_atual = IDLE;
                 send_serial("Estado - IDLE");
                 //send_serial("Opcoes:\na - Config interval\nb - Ler Sensores");
             }
-            break;
-            case TIMEOUT: {
+                break;
+            case TIMEOUT:
+            {
                 _estado_atual = SINC;
                 send_serial("Estado - SINC");
                 send_serial("Informe hora atual (HH:MM)");
             }
-            break;
-            default : _estado_atual = SINC;
+                break;
+            default: _estado_atual = SINC;
         }
     }
+}
+
+void config(uint8_t op) {
+    if (op == '*') {
+        if (index == 2) {
+            intervalo = int_d * 10 + int_u;
+        } else if (index == 1) {
+            intervalo = int_d;
+        }
+        if (index >= 1 && index <= 3) {
+            send_serial("CONFIG OK");
+            uint32_t interv = intervalo * TIME_BASE;
+            _timer.set_intervalTimeout(interv, id_timeoutMedidas);
+            index = 0;
+            handle_fsm(SET_INTERVAL);
+        }
+    } else if (op >= '0' || op <= '9') {
+        if (index == 0) {
+            int_d = (op - 48);
+            index++;
+        } else if (index == 1) {
+            int_u = (op - 48);
+            index++;
+        }
+    }
+}
+
+void sinc(uint8_t op) {
+    if (op == ':') {
+        is_min = true;
+    } else if (op == '*') {
+        send_serial("SINC OK");
+        handle_fsm(SINC_OK);
+    } else if (is_min) {
+        //min = op;
+    } else {
+        //hora = op;
+    }
+
 }
 
 void send_serial(const char* msg) {
