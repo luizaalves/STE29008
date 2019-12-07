@@ -5,6 +5,7 @@
 #include <stdint.h>
 #include "Enumeration.h"
 #include "Timer.h"
+#include "EEPROM.h"
 
 void send_serial(const char* msg);
 void upload();
@@ -14,9 +15,16 @@ void handle_fsm(EVENT_t event);
 
 uint8_t id_timeout, id_timeoutMedidas, id_timeoutLCD;
 // tempos padrões
-uint32_t timeout = 10000;        // 10 segundos
+uint32_t timeout = 60000;        // 10 segundos
 uint32_t timeoutMedidas = 60000; // 60 segundos
 uint32_t timeoutLCD = 1000;      // 1 segundo
+
+uint8_t intervalo = 1;
+uint8_t hora, min;
+uint8_t count_medidas = 0;  
+uint8_t max_medidas = 3;
+
+bool is_min = false;
 
 void handle_timeout(void) {
     send_serial("TIMEOUT");
@@ -25,22 +33,32 @@ void handle_timeout(void) {
 
 void handle_timeoutMedidas(void) {
     send_serial("TIMEOUT_MEDIDAS");
-    handle_fsm(TIMEOUT_MEDIDA);
+    count_medidas++;
+    if(count_medidas < max_medidas){
+        handle_fsm(TIMEOUT_MEDIDAS);   
+    }
+    else{
+        send_serial("MAX_MEDIDAS");
+        count_medidas = 0;
+        handle_fsm(MAX_MEDIDAS);
+    }
+           
 }
 void handle_timeoutLCD(void) {
     send_serial("TIMEOUT_LCD");
 }
-
 UART _uart(9600, UART::DATABITS_8, UART::NONE, UART::STOPBIT_1);
 Timer _timer = Timer(1000);
-STATE_t _estado_atual = IDLE;
+STATE_t _estado_atual = SINC;
+EEPROM e2prom;
+
 int main(int argc, char** argv) {
     sei();
-    id_timeout = _timer.addTimeout(10000, &handle_timeout);
-    id_timeoutMedidas = _timer.addTimeout(30000, &handle_timeoutMedidas);
-    id_timeoutLCD = _timer.addTimeout(1000, &handle_timeoutMedidas);
-    send_serial("Estado - IDLE");
-    _timer.enable_timeout(id_timeoutMedidas);
+    id_timeout = _timer.addTimeout(timeout, &handle_timeout);
+    id_timeoutMedidas = _timer.addTimeout(timeoutMedidas, &handle_timeoutMedidas);
+    id_timeoutLCD = _timer.addTimeout(timeoutLCD, &handle_timeoutLCD);
+    send_serial("Informe hora atual (HH:MM)");
+    _timer.enable_timeout(id_timeout);
     while (1) {
         _timer.timeoutManager();
         if (_uart.has_data()) {
@@ -63,7 +81,7 @@ int main(int argc, char** argv) {
                         break;
                     default:
                     {
-                        send_serial("Opção inválida");
+                        send_serial("Opcao invalida");
                         send_serial("Opcoes:\na - Config interval\nb - Ler Sensores");
                     }
 
@@ -74,12 +92,27 @@ int main(int argc, char** argv) {
                     send_serial("CONFIG OK");
                     handle_fsm(SET_INTERVAL);
                 }
+                else{
+                    intervalo = op-48;
+                    uint32_t interv = intervalo*1000;
+                    _timer.set_intervalTimeout(interv, id_timeoutMedidas);                    
+                }
             }
             else if(_estado_atual == SINC){
-                if(op == '*'){
+                if(op == ':'){
+                    is_min = true;
+                }
+                else if(op == '*'){
                     send_serial("SINC OK");
                     handle_fsm(SINC_OK);
                 }
+                else if(is_min){
+                    min = op;
+                }
+                else{
+                    hora = op;
+                }
+                
             }
         }
     }
@@ -94,7 +127,7 @@ void handle_fsm(EVENT_t event) {
             {
                 _estado_atual = WAIT_CONFIG;
                 send_serial("Estado - WAIT_CONFIG");
-                char msg[] = "Informe o intervalo de leitura:";
+                char msg[] = "Informe o intervalo de leitura (minutos):";
                 send_serial(msg);
                 _timer.disable_timeout(id_timeoutMedidas);
                 _timer.enable_timeout(id_timeout);
@@ -109,12 +142,11 @@ void handle_fsm(EVENT_t event) {
                 upload();
             }
                 break;
-            case TIMEOUT_MEDIDA:
+            case TIMEOUT_MEDIDAS:
             {
                 _estado_atual = READ_2;
                 send_serial("Estado - READ_2");
-                enable_timeout = true;
-                enable_timeoutMedidas = false;
+                _timer.disable_timeout(id_timeoutMedidas);
                 read_sensores();
 
             }
@@ -123,8 +155,8 @@ void handle_fsm(EVENT_t event) {
             {
                 _estado_atual = READ_1;
                 send_serial("Estado - READ_1");
-                enable_timeout = false;
-                enable_timeoutMedidas = false;
+                _timer.disable_timeout(id_timeoutMedidas);
+                _timer.enable_timeout(id_timeout);
                 read_sensores();
             }
                 break;
@@ -137,17 +169,16 @@ void handle_fsm(EVENT_t event) {
             {
                 _estado_atual = IDLE;
                 send_serial("Estado - IDLE");
-                enable_timeout = false;
-                enable_timeoutMedidas = true;
-                send_serial("Opcoes:\na - Config interval\nb - Ler Sensores");
+                _timer.disable_timeout(id_timeout);
+                _timer.enable_timeout(id_timeoutMedidas);
+                //send_serial("Opcoes:\na - Config interval\nb - Ler Sensores");
             }
                 break;
             case SET_INTERVAL:
             {
                 _estado_atual = UPLOAD;
                 send_serial("Estado - UPLOAD");
-                enable_timeout = false;
-                enable_timeoutMedidas = false;
+                _timer.disable_timeout(id_timeout);
                 upload();
             }
                 break;
@@ -156,21 +187,18 @@ void handle_fsm(EVENT_t event) {
     //ESTADO READ_2
     } else if (_estado_atual == READ_2) {
         switch (event) {
-            case TIMEOUT:
+            case ERRO:
             {
                 _estado_atual = IDLE;
                 send_serial("Estado - IDLE");
-                enable_timeout = false;
-                enable_timeoutMedidas = true;
-                send_serial("Opcoes:\na - Config interval\nb - Ler Sensores");
+                _timer.enable_timeout(id_timeoutMedidas);
+                //send_serial("Opcoes:\na - Config interval\nb - Ler Sensores");
             }
                 break;
             case READ_OK:
             {
                 _estado_atual = WRITE;
                 send_serial("Estado - WRITE");
-                enable_timeout = false;
-                enable_timeoutMedidas = false;
                 write_mem("Escrita Memoria");
             }
                 break;
@@ -179,37 +207,46 @@ void handle_fsm(EVENT_t event) {
     //ESTADO READ_1
     } else if (_estado_atual == READ_1) {
         if (event == READ_OK) {
-            _estado_atual = IDLE;
             send_serial("leitura atual:");
+            _estado_atual = IDLE;
             send_serial("Estado - IDLE");
-            send_serial("Opcoes:\na - Config interval\nb - Ler Sensores");
-            enable_timeout = false;
-            enable_timeoutMedidas = true;
+            //send_serial("Opcoes:\na - Config interval\nb - Ler Sensores");
+            _timer.enable_timeout(id_timeoutMedidas);
         }
     //ESTADO WRITE
     } else if (_estado_atual == WRITE) {
         if (event == WRITE_OK) {
             _estado_atual = IDLE;
             send_serial("Estado - IDLE");
-            send_serial("Opcoes:\na - Config interval\nb - Ler Sensores");
-            enable_timeout = false;
-            enable_timeoutMedidas = true;
+            //send_serial("Opcoes:\na - Config interval\nb - Ler Sensores");
+            _timer.enable_timeout(id_timeoutMedidas);
         }
     //ESTADO UPLOAD
     } else if (_estado_atual == UPLOAD) {
         if (event == UP_OK) {
             _estado_atual = SINC;
             send_serial("Estado - SINC");
-            send_serial("Informe hora atual:");
+            send_serial("Informe hora atual (HH:MM)");
+            _timer.enable_timeout(id_timeout);
         }
     //ESTADO SINC
     } else if (_estado_atual == SINC) {
-        if (event == SINC_OK) {
-            _estado_atual = IDLE;
-            send_serial("Estado - IDLE");
-            send_serial("Opcoes:\na - Config interval\nb - Ler Sensores");
-            enable_timeout = false;
-            enable_timeoutMedidas = true;
+        switch(event){
+            case SINC_OK : {
+                _timer.disable_timeout(id_timeout);
+                _timer.enable_timeout(id_timeoutMedidas);
+                _estado_atual = IDLE;
+                send_serial("Estado - IDLE");
+                //send_serial("Opcoes:\na - Config interval\nb - Ler Sensores");
+            }
+            break;
+            case TIMEOUT: {
+                _estado_atual = SINC;
+                send_serial("Estado - SINC");
+                send_serial("Informe hora atual (HH:MM)");
+            }
+            break;
+            default : _estado_atual = SINC;
         }
     }
 }

@@ -11,14 +11,15 @@
 enum EVENT_t {
     READ_ATUAL = 1,
     CONFIG = 2,
-    TIMEOUT_MEDIDA = 3,
+    TIMEOUT_MEDIDAS = 3,
     MAX_MEDIDAS = 4,
     READ_OK = 5,
     WRITE_OK = 6,
     SINC_OK = 7,
     UP_OK = 8,
     TIMEOUT = 9,
-    SET_INTERVAL = 10
+    SET_INTERVAL = 10,
+    ERRO = 11
 };
 
 enum STATE_t {

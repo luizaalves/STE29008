@@ -116,7 +116,7 @@ void Timer::timeoutManager(){
 void Timer::enable_timeout(uint8_t id_timeout){
     if(_n_timeout > id_timeout){
         self()->_timeout[id_timeout].enable(true);
-        self()->_timeout[id_timeout].reload();
+        //self()->_timeout[id_timeout].reload();
     }
 }
 

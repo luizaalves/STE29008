@@ -45,6 +45,7 @@ void Timeout::enable(bool op){
 
 void Timeout::set_interval(uint32_t interv){
     _interval = interv;
+    _counter = 0;
 }
 
 void Timeout::reload(){
