@@ -3,11 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/aluno/ste/Atividade-5/Estacao.X/Timer.h</file>
-            <file>file:/home/aluno/ste/Atividade-5/Estacao.X/main.cpp</file>
-            <file>file:/home/aluno/ste/Atividade-5/Estacao.X/Timeout.h</file>
-            <file>file:/home/aluno/ste/Atividade-5/Estacao.X/Timer.cpp</file>
-            <file>file:/home/aluno/ste/Atividade-5/Estacao.X/Timeout.cpp</file>
+            <file>file:/home/felipe/ifsc/ste/Atividade-5/Estacao.X/DHT11.cpp</file>
+            <file>file:/home/felipe/ifsc/ste/Atividade-5/Estacao.X/EEPROM.h</file>
+            <file>file:/home/felipe/ifsc/ste/Atividade-5/Estacao.X/main.cpp</file>
+            <file>file:/home/felipe/ifsc/ste/Atividade-5/Estacao.X/Estacao.cpp</file>
+            <file>file:/home/felipe/ifsc/ste/Atividade-5/Estacao.X/UART.h</file>
+            <file>file:/home/felipe/ifsc/ste/Atividade-5/Estacao.X/Enumeration.h</file>
+            <file>file:/home/felipe/ifsc/ste/Atividade-5/Estacao.X/EEPROM.cpp</file>
+            <file>file:/home/felipe/ifsc/ste/Atividade-5/Estacao.X/UART.cpp</file>
         </group>
     </open-files>
 </project-private>

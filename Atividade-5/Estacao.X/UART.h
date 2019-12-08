@@ -10,7 +10,7 @@
 
 #include "fila.h"
 
-typedef Fila<uint8_t,100> BUFFER_UART_t;
+typedef Fila<uint8_t,150> BUFFER_UART_t;
 
 class UART {
     
