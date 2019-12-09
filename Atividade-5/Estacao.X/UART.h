@@ -38,6 +38,7 @@ public:
     
     void put(uint8_t data);
     void puts(const char * msg);
+    void put_linha(const char * msg);
     uint8_t get();
     bool has_data();
     static void rx_isr_handler();
@@ -45,7 +46,7 @@ public:
 private:
     static bool _has_data;
     static BUFFER_UART_t _rx_buffer;
-    static BUFFER_UART_t _tx_buffer;
+    //static BUFFER_UART_t _tx_buffer;
 
 };
 

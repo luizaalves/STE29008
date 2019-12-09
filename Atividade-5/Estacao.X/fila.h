@@ -40,6 +40,12 @@ public:
     unsigned int size(){
         return _N;
     }
+    void esvazia(){
+        _N = 0;
+        _inicio = 0;
+        _fim = 0; 
+        
+    }
 private:
     unsigned int _N, _cap;
     T _buffer[cap];

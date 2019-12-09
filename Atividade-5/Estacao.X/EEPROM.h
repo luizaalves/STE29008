@@ -15,7 +15,7 @@ public:
 	EEPROM(){};
 	~EEPROM(){};
 	void write(uint8_t * pos, uint8_t byte);
-	void write_burst(uint8_t * pos, Fila<uint8_t,10> bytes);
+	void write_burst(uint8_t * pos, Fila<uint8_t,6> * bytes);
 	uint8_t read(uint8_t * pos);
 
 

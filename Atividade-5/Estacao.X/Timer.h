@@ -42,6 +42,7 @@ public:
     uint8_t addTimeout(uint32_t interval, CALLBACK_t callback);  //alterado para Atividade-5
     //Inserido para Atividade-5
     void enable_timeout(uint8_t id_timeout);
+    void reload_timeout(uint8_t id_timeout);
     void disable_timeout(uint8_t id_timeout);
     void set_intervalTimeout(uint32_t interv, uint8_t id_timeout);
     //---

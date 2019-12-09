@@ -19,7 +19,9 @@ enum EVENT_t {
     UP_OK = 8,
     TIMEOUT = 9,
     SET_INTERVAL = 10,
-    ERRO = 11
+    ERRO = 11,
+    NONE = 12,
+    CHECK_OK
 };
 
 enum STATE_t {
@@ -29,7 +31,8 @@ enum STATE_t {
     WRITE = 4,
     WAIT_CONFIG = 5,
     UPLOAD = 6,
-    SINC = 7
+    SINC = 7,
+    CHECK = 8
 };
 
 #endif	/* ENUMERATION_H */
