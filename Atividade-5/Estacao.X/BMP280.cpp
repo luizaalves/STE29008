@@ -10,8 +10,8 @@
 BMP280::BMP280() {
 
 }
-uint16_t BMP280::read(){
-    uint16_t leitura = 4;
+int32_t BMP280::read(){
+    int32_t leitura = 40;
     return leitura;
 }
 void BMP280::start(){

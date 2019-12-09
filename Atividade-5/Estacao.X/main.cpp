@@ -6,8 +6,13 @@
 #include "Enumeration.h"
 #include "Timer.h"
 #include "EEPROM.h"
+#include "DHT11.h"
+#include "LDR.h"
+#include "BMP280.h"
+#include "Estacao.h"
 #include <util/delay.h>
 
+void send_atual();
 void send_dados();
 void print_headers();
 void verifica_memoria();
@@ -19,9 +24,10 @@ EVENT_t read_sensores();
 EVENT_t write_mem();
 void handle_fsm(EVENT_t event);
 
-#define LIMIT_MEDIDAS 3 // Máximo de medidas que pode ser feita em uma hora
+#define LIMIT_MEDIDAS 2 // Máximo de medidas que pode ser feita em uma hora
 #define TIME_BASE 1000U  // 1 segundo
 #define QTD_DADOS 6  // HH MM Umidade Pressao Temperatura Luminosidade
+#define QTD_SENSORES 4
 #define POS_FLAG 0
 #define POS_INT 1
 #define POS_COUNT 2
@@ -32,7 +38,7 @@ uint8_t id_timeout, id_timeoutMedidas, id_timeoutLCD, id_timeoutRelogio;
 // tempos padrões
 uint32_t timeout = 20 * TIME_BASE; // 20 segundos
 uint32_t timeoutMedidas = 4 * TIME_BASE; // 1 minuto
-uint32_t timeoutLCD = TIME_BASE/2; // 0.5 segundo
+uint32_t timeoutLCD = TIME_BASE / 2; // 0.5 segundo
 uint32_t timeoutRelogio = TIME_BASE; // 1 segundo
 
 uint8_t intervalo;
@@ -43,7 +49,7 @@ uint8_t count_medidas;
 uint8_t max_medidas;
 uint8_t index = 0;
 uint8_t index_sinc = 0;
-int pos_dados_atual = POS_INICIAL_DADOS;
+uint32_t * pos_dados_atual;
 bool is_min = false;
 bool mem_ok = false;
 
@@ -52,8 +58,17 @@ Timer _timer = Timer(1000);
 STATE_t _estado_atual = SINC;
 EVENT_t _event = NONE;
 EEPROM e2prom = EEPROM();
-uint8_t dados[6];
-Fila<uint8_t, 6>  medidas;
+int32_t dados[QTD_DADOS];   
+Fila<int32_t, 6> medidas;
+
+//Sensores
+DHT11 umidade;
+LDR luminosidade;
+BMP280 temperatura;
+BMP280 pressao;
+
+//Estacao
+Estacao<QTD_SENSORES> _estacao;
 
 void handle_timeout(void) {
     send_serial("TIMEOUT");
@@ -72,12 +87,12 @@ void handle_timeoutLCD(void) {
 }
 
 void handle_timeoutRelogio(void) {
-    char x[sizeof (uint8_t)*8 + 1];
-    itoa(min, x, 10);
-    _uart.put_linha(x);
-    if(min == 59){
-        if(hora == 23){
+    if (min == 59) {
+        if (hora == 23) {
             hora = 00;
+        }
+        else{
+            hora++;
         }
         min = 00;
     }
@@ -86,14 +101,21 @@ void handle_timeoutRelogio(void) {
 
 int main(int argc, char** argv) {
     sei();
-
+    
+    _estacao.addSensor(&umidade);
+    _estacao.addSensor(&pressao);
+    _estacao.addSensor(&temperatura);
+    _estacao.addSensor(&luminosidade);
+    
     verifica_memoria();
-
+    
     id_timeout = _timer.addTimeout(timeout, &handle_timeout);
     id_timeoutMedidas = _timer.addTimeout(timeoutMedidas, &handle_timeoutMedidas);
     id_timeoutLCD = _timer.addTimeout(timeoutLCD, &handle_timeoutLCD);
     id_timeoutRelogio = _timer.addTimeout(timeoutRelogio, &handle_timeoutRelogio);
+    
     send_serial("Informe hora atual HH:MM seguido de * ");
+    
     _timer.enable_timeout(id_timeout);
     _timer.reload_timeout(id_timeout);
 
@@ -230,7 +252,7 @@ void handle_fsm(EVENT_t event) {
         //ESTADO READ_1
     } else if (_estado_atual == READ_1) {
         if (event == READ_OK) {
-            send_serial("leitura atual:");
+            send_atual();
             _estado_atual = IDLE;
             send_serial("Estado - IDLE");
             _timer.enable_timeout(id_timeoutMedidas);
@@ -262,7 +284,7 @@ void handle_fsm(EVENT_t event) {
                 break;
             case CHECK_OK:
             {
-                
+
                 _timer.enable_timeout(id_timeoutMedidas);
                 _timer.reload_timeout(id_timeoutMedidas);
                 _estado_atual = IDLE;
@@ -394,19 +416,19 @@ EVENT_t sinc(uint8_t op) {
 }
 
 void verifica_memoria() {
-    // uint8_t flag = e2prom.read((uint8_t*) POS_FLAG);
-    //    if (flag == 'k') {
-    //        intervalo = e2prom.read((uint8_t*) POS_INT);
-    //        count_medidas = e2prom.read((uint8_t*) POS_COUNT);
-    //        pos_dados_atual = (uint8_t) (count_medidas * QTD_DADOS) + 1;
-    //    } else {
-    intervalo = 1;
-    count_medidas = 0;
-    //pos_dados_atual = POS_INICIAL_DADOS;
-    //e2prom.write((uint8_t*) POS_FLAG, 'k');
-    e2prom.write((uint8_t*) POS_INT, intervalo);
-    e2prom.write((uint8_t*) POS_COUNT, count_medidas);
-    //}
+//    uint8_t flag = e2prom.read((uint8_t*) POS_FLAG);
+//    if (flag == 'j') {
+//        intervalo = e2prom.read((uint8_t*) POS_INT);
+//        count_medidas = e2prom.read((uint8_t*) POS_COUNT);
+//        pos_dados_atual = (uint8_t) (count_medidas * QTD_DADOS) + 1;
+//    } else {
+        intervalo = 1;
+        count_medidas = 0;
+        pos_dados_atual = (uint32_t*) POS_INICIAL_DADOS;
+        e2prom.write((uint8_t*) POS_FLAG, 'j');
+        e2prom.write((uint8_t*) POS_INT, intervalo);
+        e2prom.write((uint8_t*) POS_COUNT, count_medidas);
+//    }
     max_medidas = LIMIT_MEDIDAS / intervalo;
 
 }
@@ -416,49 +438,18 @@ void send_serial(const char* msg) {
 }
 
 EVENT_t upload() {
-    pos_dados_atual = POS_INICIAL_DADOS;
-    uint8_t data;
+    pos_dados_atual = (uint32_t*) POS_INICIAL_DADOS;
+    uint32_t data;
     int leitura = 0;
     while (leitura < max_medidas) {
         for (int i = 0; i < 6; i++) {
-            data = e2prom.read((uint8_t*)pos_dados_atual);
+            data = e2prom.read32(pos_dados_atual);
             medidas.push(data);
             pos_dados_atual++;
-//            data = e2prom.read((uint8_t*) pos_dados_atual);
-//            medidas.push(data);
-//            pos_dados_atual++;
-//            data = e2prom.read((uint8_t*) pos_dados_atual);
-//            medidas.push(data);
-//            pos_dados_atual++;
-//            data = e2prom.read((uint8_t*) pos_dados_atual);
-//            medidas.push(data);
-//            pos_dados_atual++;
-//            data = e2prom.read((uint8_t*) pos_dados_atual);
-//            medidas.push(data);
-//            pos_dados_atual++;
-//            data = e2prom.read((uint8_t*) pos_dados_atual);
-//            medidas.push(data);
-//            pos_dados_atual++;
         }
         send_dados();
-//        pos_dados_atual++;
         leitura++;
     }
-    //    
-
-
-    //uint8_t leitura = 0;
-    //    while (leitura < count_medidas) {
-    //        for (int i = 0; i < 6; i++) {
-    //            data = e2prom.read((uint8_t*)(i+3));
-    //            medidas.push(data);
-    //            i++;
-    //            //pos_leitura++;
-    //        }
-    //        send_dados(medidas);
-    //        medidas.esvazia();
-    //        leitura++;
-    //    }
     send_serial("upload");
     return UP_OK;
 
@@ -466,43 +457,50 @@ EVENT_t upload() {
 
 EVENT_t read_sensores() {
     send_serial("lendo_sensores");
-    char x[sizeof (uint8_t)*8 + 1];
-    itoa(min, x, 10);
-    _uart.put_linha(x);
 
+    long leituras[QTD_SENSORES];
+    _estacao.readALL(leituras);
+    
     dados[0] = hora;
     dados[1] = min;
-    dados[2] = 23;
-    dados[3] = 23;
-    dados[4] = 33;
-    dados[5] = 33;
-    
+    for(int i = 0; i < QTD_SENSORES; i++){
+        dados[i + 2] = leituras[i];
+    }   
+
     return READ_OK;
 }
 
 EVENT_t write_mem() {
     send_serial("Escrevendo EEPROM");
-    for(int i = 0; i < 6; i++){
-        e2prom.write((uint8_t*)pos_dados_atual, dados[i]);
+    for (int i = 0; i < 6; i++) {
+        e2prom.write32(pos_dados_atual, dados[i]);
         pos_dados_atual++;
     }
-    
+
     return WRITE_OK;
 }
 
+void send_atual(){
+    for (int i = 0; i < 6; i++) {
+        medidas.push(dados[i]);
+    }
+    send_serial("leitura Atual");
+    send_dados();
+}
+
 void send_dados() {
-    uint8_t byte;
-    char x[sizeof (uint8_t)*8 + 1];
+    uint32_t byte;
+    char x[sizeof (uint32_t)*8 + 1];
     int i = 0;
     while (not medidas.empty()) {
-        if(i == 0){
+        if (i == 0) {
             char sep[] = ":";
             byte = medidas.pop();
             itoa(byte, x, 10);
             _uart.put_linha(x);
             _uart.put_linha(sep);
             i++;
-            
+
         }
         char sep[] = ",";
         byte = medidas.pop();

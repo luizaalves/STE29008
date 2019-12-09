@@ -9,12 +9,13 @@
 #define	LDR_H
 
 #include "ADConverter.h"
+#include "Sensor.h"
 
 
-class LDR {
+class LDR : public Sensor{
 public:
     LDR();
-    uint16_t read();
+    int32_t read();
     void start();
 private:
     //ADConverter _adc;

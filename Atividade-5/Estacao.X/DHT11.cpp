@@ -10,8 +10,8 @@
 DHT11::DHT11() {
 }
 
-uint16_t DHT11::read(){
-    uint16_t leitura = 4;
+int32_t DHT11::read(){
+    uint32_t leitura = 30;
     return leitura;
 }
 void DHT11::start(){

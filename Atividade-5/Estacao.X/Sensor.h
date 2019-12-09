@@ -12,7 +12,8 @@
 
 class Sensor {
 public:
-    virtual uint16_t read();
+    Sensor(){}
+    virtual int32_t read();
     virtual void start();
 private:
     

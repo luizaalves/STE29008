@@ -9,12 +9,13 @@
 #define	BMP280_H
 
 #include "SPI.h"
+#include "Sensor.h"
 
 
-class BMP280 {
+class BMP280 : public Sensor {
 public:
     BMP280();
-    uint16_t read();
+    int32_t read();
     void start();
 private:
     //SPI _spi;

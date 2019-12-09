@@ -15,7 +15,7 @@
 class DHT11: public Sensor {
 public:
     DHT11();
-    uint16_t read();
+    int32_t read();
     void start();
 private:
     //GPIO _gpio;

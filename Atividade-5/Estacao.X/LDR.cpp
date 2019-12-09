@@ -10,8 +10,8 @@
 LDR::LDR() {
 }
 
-uint16_t LDR::read(){
-    uint16_t leitura = 4;
+int32_t LDR::read(){
+    int32_t leitura = 50;
     return leitura;
 }
 void LDR::start(){

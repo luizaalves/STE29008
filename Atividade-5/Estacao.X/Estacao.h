@@ -11,15 +11,37 @@
 #include "Sensor.h"
 #include "LCD.h"
 
-class Estacao {
+template<int max_sensores> class Estacao {
 public:
-    Estacao();
-    char * readALL();
-    void addSensor(Sensor sensor);
-    void writeLCD(const char * msg);
+
+    Estacao() {
+        _n_sensores = 0;
+        _max_sensores = max_sensores;
+    }
+
+    void readALL(long * leituras) {
+        for (int i = 0; i < _max_sensores; i++) {
+            leituras[i] = _sensores[i]->read();
+        }
+    }
+
+    void addSensor(Sensor * sensor) {
+        if (_n_sensores < _max_sensores) {
+            _sensores[_n_sensores] = sensor;
+            _n_sensores++;
+        }
+
+
+    }
+    void writeLCD(const char * msg){
+    
+    
+    }
 private:
-    Sensor _sensores[3];
+    Sensor * _sensores[max_sensores];
+    uint8_t _max_sensores;
     LCD _lcd;
+    uint8_t _n_sensores;
 };
 
 #endif	/* ESTACAO_H */
